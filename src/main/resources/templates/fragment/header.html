@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div th:fragment="header" id="kt_header" class="kt-header kt-grid__item  kt-header--fixed " data-ktheader-minimize="on">
+    <div class="kt-container  kt-container--fluid ">
+
+        <!-- begin:: Brand -->
+        <div class="kt-header__brand " id="kt_header_brand">
+            <div class="kt-header__brand-logo">
+                <a href="/">
+                    <img alt="Logo" th:src="@{/assets/images/behta_logo/BehtaTahvieWhite.png}" style="max-height: 64px"/>
+                </a>
+            </div>
+            <div class="kt-header__brand-nav">
+                <span  class="btn btn-default">
+پنل بهتا تهویه
+                </span>
+            </div>
+            <div class="kt-header__brand-nav ">
+            </div>
+
+        </div>
+
+        <!-- end:: Brand -->
+
+        <!-- begin:: Header Topbar -->
+        <div class="kt-header__topbar">
+
+
+            <!--begin: Notifications -->
+            <div class="kt-header__topbar-item dropdown">
+                <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                    <span class="kt-header__topbar-icon"><i class="flaticon2-bell-alarm-symbol"></i></span>
+                    <span class="kt-hidden kt-badge kt-badge--danger"></span>
+                </div>
+                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+                    <form>
+                        <!--begin: Head -->
+                        <div class="kt-head kt-head--skin-light kt-head--fit-x kt-head--fit-b">
+                            <h3 class="kt-head__title">
+                                پیام اطلاع رسانی
+                                &nbsp;
+                                <span class="btn btn-label-warning btn-sm btn-bold btn-font-md"><span id="notificationCount"></span> جدید</span>
+                            </h3>
+                            <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-3x nav-tabs-line-brand  kt-notification-item-padding-x"
+                                role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active show" data-toggle="tab" href="#topbar_notifications_notifications" role="tab"
+                                       aria-selected="true">اعلان‌ها</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#topbar_notifications_events" role="tab"
+                                       aria-selected="false">رویداد‌ها</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!--end: Head -->
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="topbar_notifications_notifications" role="tabpanel">
+                                <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll ps alarm-container" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px; overflow: hidden;">
+
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="topbar_notifications_events" role="tabpanel">
+                                <div class="kt-notification kt-margin-t-10 kt-margin-b-10 kt-scroll ps event-container" data-scroll="true" data-height="300" data-mobile-height="200" style="height: 300px; overflow: hidden;">
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--end: Notifications -->
+
+            <!--begin: User bar -->
+            <div class="kt-header__topbar-item kt-header__topbar-item--user">
+                <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                    <span class="kt-header__topbar-welcome kt-visible-desktop">سلام</span>
+                    <span class="kt-header__topbar-username kt-visible-desktop" th:text="${@userHeaderDetail.getData().getFirstName()}"></span>
+                    <span th:if="${@userHeaderDetail.getData().getAvatar()==0}" class="kt-header__topbar-icon kt-bg-brand" ><b th:text="${@lastName.text().charAt(0)}"></b></span>
+                    <img th:unless="${@userHeaderDetail.getData().getAvatar()==0}" alt="Pic" th:src="'/thumbnail/app/get/'+${@userHeaderDetail.getData().getAvatar()}+'/200'"/>
+                </div>
+                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+
+                    <!--begin: Head -->
+                    <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
+                        <div class="kt-user-card__avatar">
+                            <span th:if="${@userHeaderDetail.getData().getAvatar()==0}" class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold" th:text="${@lastName.text().charAt(0)}"></span>
+                            <img class="kt-hidden-" th:unless="${@userHeaderDetail.getData().getAvatar()==0}" alt="Pic" th:src="'/thumbnail/app/get/'+${@userHeaderDetail.getData().getAvatar()}+'/200'"/>
+                        </div>
+                        <div class="kt-user-card__name">
+                                <span th:text="${@fullName.text()}"></span>
+                            <span class="kt-widget__subtitle" th:text="${@superVisor.isSuperVisor() ? 'مدیر' : ''}"></span>
+                        </div>
+                        <div class="kt-user-card__badge">
+                            <a href="/admin/operator/changePassword" class="btn btn-label btn-label-brand btn-sm btn-bold">رمزعبور</a>
+                        </div>
+                        <div class="kt-user-card__badge">
+                            <a href="/logout" class="btn btn-label-danger-o2  btn-sm btn-bold">خروج</a>
+                        </div>
+
+                    </div>
+                    <!--end: Head -->
+                </div>
+            </div>
+
+            <!--end: User bar -->
+        </div>
+
+        <!-- end:: Header Topbar -->
+    </div>
+</div>
+
+</body>
+</html>

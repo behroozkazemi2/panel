@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<div th:fragment="lists" th:remove="tag">
+
+
+    <input class="page" hidden th:value="${data.page}">
+    <input class="total" hidden th:value="${data.total}">
+    <input class="perpage" hidden th:value="${data.perpage}">
+    <input class="sort_field" hidden th:value="${data.sort}">
+    <input class="field" hidden th:value="${data.field}">
+
+
+    <div   th:classappend="${ticket.read == true} ?  'opacity-80' :  'kt-inbox__item--unread'"  class="kt-inbox__item  ticket_list" th:each="ticket,itter : ${ticketData.data}"
+         th:data-ticket-id="${ticket.ticketId}" data-id="1" data-type="inbox">
+        <div class="kt-inbox__info ">
+            <div class="kt-inbox__actions">
+
+                <span style="width: 110px;"><span
+
+                        th:classappend="${ticket.importance.id} == 1 ? 'kt-badge--danger' :
+                                                (${ticket.importance.id} == 2 ? 'kt-badge--warning' : (${ticket.importance.id} == 3 ? 'kt-badge--primary':  'kt-badge--success')) "
+                        class="kt-badge  kt-badge--dot"></span>&nbsp;
+                    <span class="kt-font-bold "
+                          th:text="${ticket.importance.name}"
+                          th:classappend="${ticket.importance.id} == 1 ? 'kt-font-danger' :
+                                                (${ticket.importance.id} == 2 ? 'kt-font-warning' : (${ticket.importance.id} == 3 ? 'kt-font-primary':  'kt-font-success')) "
+                    >
+                    </span>
+                </span>
+            </div>
+            <div class="kt-inbox__sender" data-toggle="view">
+														<span>
+														</span>
+                <span class="kt-inbox__author"
+                      th:text="${ticket.projectName}"></span>
+            </div>
+        </div>
+        <div class="kt-inbox__details col-1 text-dark-75" th:text="${ticket.trackingCode}" data-toggle="view">
+        </div>
+
+        <div class="kt-inbox__details" data-toggle="view">
+            <div class="kt-inbox__message">
+                <!--                                    <span class="kt-inbox__subject">Digital PPV Customer Confirmation - </span>-->
+                <span class="kt-inbox__summary" th:text="${ticket.ticketSubject}"></span>
+            </div>
+            <div class="kt-inbox__labels" th:classappend="${ticket.read == true} ?  'opacity-80': '' "   th:if="${ticket.closed}">
+                <span class="kt-inbox__label  rounded-lg kt-badge  kt-badge--md kt-badge--bold kt-badge--inline kt-badge--brand"> بسته شده </span>
+<!--                <span class="kt-inbox__label  rounded-lg kt-badge kt-badge&#45;&#45;unified-info kt-badge&#45;&#45;bold kt-badge&#45;&#45;inline">بسته شده</span>-->
+            </div>
+        </div>
+        <div class="kt-inbox__datetime col-2 "  data-toggle="view">
+        <div class="row col-12">
+            <span th:text=" 'تاریخ ثبت : '  + ${ticket.insertDateStr}">
+            </span>
+        </div>
+            <div class="row col-12">
+            <span th:text=" ' آخرین پیام : '  + ${ticket.lastTicketMessageDateStr}">
+            </span>
+            </div>
+
+        </div>
+    </div>
+
+    <div   th:if="${ticketSize == 0}" class="text-center">
+        <span class="text-center m-auto">
+         داده ای یافت نشد!
+        </span>
+    </div>
+
+
+</div>
+</html>

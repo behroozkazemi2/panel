@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/css/inbox.rtl.css}" rel="stylesheet" type="text/css"/>
+</div>
+
+<div th:remove="tag" th:fragment="subheader">
+    <div class="kt-subheader kt-container--fluid  kt-grid__item" id="kt_subheader">
+        <div class="kt-container kt-container--fluid ">
+            <div class="kt-subheader__main" th:classappend="!${isAdmin} ? '' :'kt-margin-t-10 kt-margin-b-10' ">
+                <h3 class="kt-subheader__title ">
+                    لیست کامنت‌ها
+                </h3>
+                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                <div class="kt-subheader__group">
+												<span class="kt-subheader__desc" id="kt_subheader_total">
+                    </span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+    <!-- begin:: Content -->
+    <div class="kt-container kt-container--fluid kt-grid__item kt-grid__item--fluid">
+
+
+        <!--Begin::Inbox-->
+        <div class="kt-portlet kt-portlet--height-fluid page-order">
+            <div style="border-bottom: 0!important;" class="kt-portlet__head row m-0">
+                <form id="kt_subheader_search_form" style="display: contents;">
+
+                    <div class="col-md-4  kt-margin-b-20-tablet-and-mobile mt-3 kt-margin-t-0-mobile">
+                        <label class="form-control-label">محصول</label>
+                        <div class="kt-input-icon kt-input-icon--right kt-subheader__">
+
+                            <select id="productId" class="productId select2  has-select2 form-control">
+                                <option value="0" >همه</option>
+                                <option th:each="option: ${@productList.getProductListItems()}"
+                                        th:text="${option.name}"
+                                        th:value="${option.id}"
+                                        th:selected="${productId} == ${option.id}"
+                                ></option>
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4  kt-margin-b-20-tablet-and-mobile mt-3 kt-margin-t-0-mobile">
+                        <label class="form-control-label">وضعیت کامنت</label>
+                        <div class="kt-input-icon kt-input-icon--right kt-subheader__">
+
+                            <select class="status_search select2  has-select2 form-control">
+                                <option value="0" >همه</option>
+                                <option th:each="option: ${@commentStatusList.getCommentStatusList()}" th:text="${option.name}" th:value="${option.id}" ></option>
+                            </select>
+
+                        </div>
+                    </div>
+
+<!--                    <div class="col-md-4  kt-margin-b-20-tablet-and-mobile mt-3 kt-margin-t-0-mobile">-->
+<!--                        <label class="form-control-label">جسجو</label>-->
+
+<!--                        <div class="kt-input-icon kt-input-icon&#45;&#45;right kt-subheader__">-->
+
+<!--                            <input type="text" class="form-control rounded-lg mb-3 general_search" placeholder="جستجو بر اساس  موضوع یا متن..."-->
+<!--                                   id="name_search">-->
+<!--                            <span class="kt-input-icon__icon kt-input-icon__icon&#45;&#45;right">-->
+<!--                                <span>-->
+<!--                                    <svg xmlns="http://www.w3.org/2000/svg"-->
+<!--                                         xmlns:xlink="http://www.w3.org/1999/xlink"-->
+<!--                                         width="24px" height="24px" viewBox="0 0 24 24"-->
+<!--                                         version="1.1" class="kt-svg-icon">-->
+<!--                                        <g stroke="none" stroke-width="1" fill="none"-->
+<!--                                           fill-rule="evenodd">-->
+<!--                                            <rect x="0" y="0" width="24" height="24"/>-->
+<!--                                            <path d="M14.2928932,16.7071068 C13.9023689,16.3165825 13.9023689,15.6834175 14.2928932,15.2928932 C14.6834175,14.9023689 15.3165825,14.9023689 15.7071068,15.2928932 L19.7071068,19.2928932 C20.0976311,19.6834175 20.0976311,20.3165825 19.7071068,20.7071068 C19.3165825,21.0976311 18.6834175,21.0976311 18.2928932,20.7071068 L14.2928932,16.7071068 Z"-->
+<!--                                                  fill="#000000" fill-rule="nonzero"-->
+<!--                                                  opacity="0.3"/>-->
+<!--                                            <path d="M11,16 C13.7614237,16 16,13.7614237 16,11 C16,8.23857625 13.7614237,6 11,6 C8.23857625,6 6,8.23857625 6,11 C6,13.7614237 8.23857625,16 11,16 Z M11,18 C7.13400675,18 4,14.8659932 4,11 C4,7.13400675 7.13400675,4 11,4 C14.8659932,4 18,7.13400675 18,11 C18,14.8659932 14.8659932,18 11,18 Z"-->
+<!--                                                  fill="#000000" fill-rule="nonzero"/>-->
+<!--                                        </g>-->
+<!--                                    </svg>-->
+
+<!--                                    &lt;!&ndash;<i class="flaticon2-search-1"></i>&ndash;&gt;-->
+<!--                                </span>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    <div class="col-md-4  kt-margin-b-20-tablet-and-mobile mt-3 kt-margin-t-0-mobile">
+
+                    </div>
+
+
+                    <div class="col-md-4 mb-5 kt-margin-t-40 kt-margin-b-20-tablet-and-mobile mt-4 kt-margin-t-0-mobile dir-ltr row" >
+
+                        <button type="button" style="max-height: 100px!important;" class="btn btn-outline-info  rounded-lg mr-2 col-3 search_btn ">
+                            جست‌و‌جو
+                            <i class="fa fa-search"></i>
+                        </button>
+
+                    </div>
+
+
+                </form>
+            </div>
+
+
+            <div class="kt-portlet__body">
+                <!--begin: Datatable -->
+                <div class="kt-datatable  comment_data_table" ></div>
+                <!--end: Datatable -->
+            </div>
+        </div>
+
+
+        <!--End::Inbox-->
+
+        <!--Begin:: Inbox Compose-->
+        <div class="modal  fade " id="kt_inbox_compose" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content kt-inbox rounded-lg">
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}"
+            ‌type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/persian-date.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/util.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/pages/comment/comment.js}"></script>
+    <!--    <script th:src="@{/assets/js/pages/ticket/ticketMessage.js}"></script>-->
+</div>
+</body>
+
+
+</html>
+

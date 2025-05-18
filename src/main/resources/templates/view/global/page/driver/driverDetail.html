@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/libs/general/pDatePicker/persian-datepicker.min.css}" rel="stylesheet" type="text/css" />
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="appContent">
+
+    <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+        <!--begin::Portlet-->
+        <div class="kt-portlet kt-portlet--mobile kt-portlet--tabs">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">اطلاعات خودرو</h3>
+                </div>
+
+            </div>
+            <div class="kt-portlet__body">
+                <form class="kt-form" id="kt_form" th:object="${detail}">
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="kt-section kt-section--first">
+                                <div class="kt-section__body">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="kt-widget__info">
+                                                <span class="kt-widget__label">پلاک:</span>
+                                                <a class="kt-widget__data"
+                                                    th:text="*{plateFirst + ' ' + plateCharacter + ' ' + plateSecond + ' - ' + plateCity}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="kt-widget__info">
+                                                <span class="kt-widget__label">نام‌خودرو:</span>
+                                                <a class="kt-widget__data" th:text="*{vehicleModel}"></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="kt-widget__info">
+                                                <span class="kt-widget__label">مدل:</span>
+                                                <span class="kt-widget__data" th:text="*{modelYear}"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="kt-widget__info">
+                                                <span class="kt-widget__label">رنگ:</span>
+                                                <span class="kt-widget__data" th:text="*{vehicleColor}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6 form-group">
+                                            <label class="col-form-label">کیلومتر بعدی سرویس دوره‌ای</label>
+                                            <input class="form-control" type="text" placeholder="کیلومتر بعدی سرویس دوره‌ای" th:field="*{nextKmPeriodService}">
+                                        </div>
+                                        <div class="col-md-6 form-group">
+                                            <label class="col-form-label">کیلومتر بعدی تعویض تسمه تایم</label>
+                                            <input class="form-control" type="text" placeholder="کیلومتر بعدی تعویض تسمه تایم"  th:field="*{nextKmTimingBelt}">
+                                        </div>
+                                        <input type="hidden" th:field="*{id}" >
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 form-group">
+                                            <label class="col-form-label">پایان اعتبار گواهینامه</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span
+                                                        class="input-group-text cursor-pointer"
+                                                        id="expireDrivingLicenceDate"><i
+                                                        class="la la-calendar"></i></span></div>
+                                                <input type="text"
+                                                       th:value="*{expireDrivingLicence!=null} ?*{getPersianDate(expireDrivingLicence)}"
+                                                       id="expireDrivingLicenceTimeStamp"
+                                                       class="form-control"
+                                                       aria-label="expireDrivingLicenceDate"
+                                                       aria-describedby="expireDrivingLicenceDate">
+                                                <input type="hidden"
+                                                       th:value="*{expireDrivingLicence!=null} ?*{expireDrivingLicence}"
+                                                       name="expireDrivingLicence"
+                                                       id="expireDrivingLicenceTimeStampDate"
+                                                       class="form-control"
+                                                       aria-label="expireDrivingLicenceDate"
+                                                       aria-describedby="expireDrivingLicenceDate">
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="col-form-label">پایان اعتبار معاینه‌فنی</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span
+                                                        class="input-group-text cursor-pointer"
+                                                        id="expireTechnicalLicenceDate"><i
+                                                        class="la la-calendar"></i></span></div>
+                                                <input type="text"
+                                                       th:value="*{expireTechnicalLicence != null} ? *{getPersianDate(expireTechnicalLicence)}"
+                                                       id="expireTechnicalLicenceTimeStamp"
+                                                       class="form-control"
+                                                       aria-label="expireTechnicalLicenceDate"
+                                                       aria-describedby="expireTechnicalLicenceDate">
+                                                <input type="hidden"
+                                                       th:value="*{expireTechnicalLicence !=null} ? *{expireTechnicalLicence}"
+                                                       name="expireTechnicalLicence"
+                                                       id="expireTechnicalLicenceTimeStampDate"
+                                                       class="form-control"
+                                                       aria-label="expireTechnicalLicenceDate"
+                                                       aria-describedby="expireTechnicalLicenceDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="col-form-label">پایان اعتبار بیمه شخص‌ثالث</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span
+                                                        class="input-group-text cursor-pointer"
+                                                        id="expirePersonalInsuranceLicenceDate"><i
+                                                        class="la la-calendar"></i></span></div>
+                                                <input type="text"
+                                                       th:value="*{expirePersonalInsuranceLicence != null} ? *{getPersianDate(expirePersonalInsuranceLicence)}"
+                                                       id="expirePersonalInsuranceLicenceTimeStamp"
+                                                       class="form-control"
+                                                       aria-label="expirePersonalInsuranceLicenceDate"
+                                                       aria-describedby="expirePersonalInsuranceLicenceDate">
+                                                <input type="hidden"
+                                                       th:value="*{expirePersonalInsuranceLicence !=null} ? *{expirePersonalInsuranceLicence}"
+                                                       name="expirePersonalInsuranceLicence"
+                                                       id="expirePersonalInsuranceLicenceTimeStampDate"
+                                                       class="form-control"
+                                                       aria-label="expirePersonalInsuranceLicenceDate"
+                                                       aria-describedby="expirePersonalInsuranceLicenceDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="col-form-label">پایان اعتبار بیمه‌بدنه</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span
+                                                        class="input-group-text cursor-pointer"
+                                                        id="expireBodyInsuranceLicenceDate"><i
+                                                        class="la la-calendar"></i></span></div>
+                                                <input type="text"
+                                                       th:value="*{expireBodyInsuranceLicence != null} ? *{getPersianDate(expireBodyInsuranceLicence)}"
+                                                       id="expireBodyInsuranceLicenceTimeStamp"
+                                                       class="form-control"
+                                                       aria-label="expireBodyInsuranceLicenceDate"
+                                                       aria-describedby="expireBodyInsuranceLicenceDate">
+                                                <input type="hidden"
+                                                       th:value="*{expireBodyInsuranceLicence !=null} ? *{expireBodyInsuranceLicence}"
+                                                       name="expireBodyInsuranceLicence"
+                                                       id="expireBodyInsuranceLicenceTimeStampDate"
+                                                       class="form-control"
+                                                       aria-label="expireBodyInsuranceLicenceDate"
+                                                       aria-describedby="expireBodyInsuranceLicenceDate">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 form-group">
+                                            <label class="col-form-label">پایان اعتبار بیمه جاده‌ای</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend"><span
+                                                        class="input-group-text cursor-pointer"
+                                                        id="expireRoadInsuranceDate"><i
+                                                        class="la la-calendar"></i></span></div>
+                                                <input type="text"
+                                                       th:value="*{expireRoadInsurance != null} ? *{getPersianDate(expireRoadInsurance)}"
+                                                       id="expireRoadInsuranceTimeStamp"
+                                                       class="form-control"
+                                                       aria-label="expireRoadInsuranceDate"
+                                                       aria-describedby="expireRoadInsuranceDate">
+                                                <input type="hidden"
+                                                       th:value="*{expireRoadInsurance !=null} ? *{expireRoadInsurance}"
+                                                       name="expireRoadInsurance"
+                                                       id="expireRoadInsuranceTimeStampDate"
+                                                       class="form-control"
+                                                       aria-label="expireRoadInsuranceDate"
+                                                       aria-describedby="expireRoadInsuranceDate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions text-right">
+                            <button type="submit" class="btn btn-success action-submit">ذخیره</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--end::Portlet-->
+
+        <!--begin::Modal-->
+        <!-- remote datatable modal -->
+        <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content" style="min-height: 590px;">
+                </div>
+            </div>
+        </div>
+
+        <!--end::Modal-->
+    </div>
+</div>
+<div th:remove="tag" th:fragment="appScript">
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/select2/dist/js/select2.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/global/pages/driver/detail.js}" type="text/javascript"></script>
+</div>
+</body>
+</html>

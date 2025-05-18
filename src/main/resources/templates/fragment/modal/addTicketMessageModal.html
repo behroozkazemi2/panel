@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<div th:fragment="modal" th:remove="tag">
+
+
+
+
+
+    <div class="kt-inbox__form" id="kt_inbox_compose_form">
+        <div class="kt-inbox__head">
+            <div class="kt-inbox__title">ثبت تیکت جدید</div>
+            <div class="kt-inbox__actions">
+                <button type="button" class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light"
+                        data-dismiss="modal">
+                    <i class="flaticon2-cross"></i>
+                </button>
+            </div>
+        </div>
+        <div class="kt-inbox__body">
+            <div class="kt-inbox__to">
+                <div class="kt-inbox__wrapper">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__label">
+                            پروژه :‌
+                        </div>
+                        <div class="kt-inbox__input form-group-sub">
+                            <select class="form-control select2 has-select2 modal_project"
+                                    name="project">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kt-inbox__to border-top">
+                <div class="kt-inbox__wrapper">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__label text-nowrap">
+                            موضوع :‌
+                        </div>
+                        <div class="kt-inbox__input form-group-sub">
+                            <input class="form-control ml-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kt-inbox__to border-top">
+                <div class="kt-inbox__wrapper">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__label text-nowrap">اهمیت :‌</div>
+                        <div class="kt-inbox__input form-group-sub">
+                            <select class="form-control select2 has-select2 ">
+                                <option th:each="option : ${@importance.getOption()}"
+                                        th:text="${option.name}"
+                                        th:value="${option.id}"></option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="kt-inbox__to border-top">
+                <div class="kt-inbox__wrapper">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__label ">
+                            متن :
+
+                        </div>
+
+
+                    </div>
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__label">
+
+                        </div>
+                        <div class="kt-inbox__input form-group-sub">
+                            <textarea rows="5" class="form-control" style="resize: none;border: none!important;"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="kt-inbox__attachments">
+                <div class="dropzone dropzone-multi  " id="kt_inbox_compose_attachments">
+
+                    <div class="dropzone-items">
+                        <div class="dropzone-item " style="display:none;background: #f4f6fa">
+                            <div class="dropzone-file">
+                                <div class="dropzone-filename" title="some_image_file_name.jpg">
+                                    <span data-dz-name>some_image_file_name.jpg</span> <strong>(<span
+                                        data-dz-size>340kb</span>)</strong>
+                                </div>
+                                <div class="dropzone-error" data-dz-errormessage></div>
+                            </div>
+                            <div class="dropzone-progress">
+                                <div class="progress">
+                                    <div class="progress-bar kt-bg-brand" role="progressbar"
+                                         aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                         data-dz-uploadprogress></div>
+                                </div>
+                            </div>
+                            <div class="dropzone-toolbar">
+                                                <span class="dropzone-delete" data-dz-remove><i
+                                                        class="flaticon2-cross"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-inbox__foot">
+            <div class="kt-inbox__primary">
+                <div class="kt-inbox__panel">
+                    <label class="kt-inbox__icon kt-inbox__icon--light"
+                           id="kt_inbox_compose_attachments_select">
+                        <i class="flaticon2-clip-symbol"></i>
+                    </label>
+                </div>
+            </div>
+            <div class="kt-inbox__secondary">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-brand btn-bold">
+                        ارسال
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--    <div class="modal-header">-->
+<!--        <h5 class="modal-title">پیام جدید</h5>-->
+
+<!--    </div>-->
+<!--    <div class="modal-body">-->
+
+
+<!--        <form class="kt-form kt-form&#45;&#45;label-right" id="form-modal-add-ticket-text"  >-->
+<!--            <div class="kt-portlet__body">-->
+<!--                <div class="form-group  row">-->
+<!--                    <div class="col-lg-12 form-group-sub  ">-->
+<!--                        <label class="form-control-label">متن-->
+<!--                            <span class="text-danger" >*</span>-->
+<!--                        </label>-->
+<!--                        <textarea class="form-control br-radius-5"  id="text"  rows="5"  maxlength="2550"  name="text" style="resize: none"></textarea>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--&lt;!&ndash;                <div id="doc-Dropzone" style="text-align: center;"  class="dropzone dropzone-default dropzone-primary dz-clickable" >&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="dz-message  needsclick">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <span class="text-muted"> برای بارگذاری کلیک کنید </span>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--                <div class="dropzone dropzone-default dropzone-primary dz-clickable" id="kt_dropzone_2">-->
+<!--                    <div class="dropzone-msg dz-message needsclick">-->
+<!--                        <h3 class="dropzone-msg-title">برای بارگذاری فایل کلیک کنید</h3>-->
+<!--                        <span class="dropzone-msg-desc">حداکثر حجم فایل 2 مگابایت</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </form>-->
+
+<!--    </div>-->
+<!--    <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-outline-secondary br-radius-5" data-dismiss="modal">انصراف</button>-->
+<!--        <button id="submit"  form="form-modal-add-ticket-text" class="btn br-radius-5 btn-brand btn-submit">-->
+<!--            ذخیره-->
+<!--        </button>-->
+<!--    </div>-->
+
+
+</div>
+</html>

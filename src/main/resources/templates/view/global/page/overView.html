@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/css/pages/general/wizard/wizard-3.rtl.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/libs/general/perfect-scrollbar/css/perfect-scrollbar.css}" rel="stylesheet" type="text/css" />
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+
+
+    <!-- begin:: Content -->
+    <div class="kt-content  kt-grid__item kt-grid__item--fluid" id="kt_content">
+
+        <!--Begin::App-->
+        <div class="kt-grid kt-grid--desktop kt-grid--ver kt-grid--ver-desktop kt-app">
+
+            <!--Begin:: App Aside Mobile Toggle-->
+            <button class="kt-app__aside-close" id="kt_user_profile_aside_close">
+                <i class="la la-close"></i>
+            </button>
+
+            <!--End:: App Aside Mobile Toggle-->
+
+            <!--Begin:: App Aside-->
+            <div class="kt-grid__item kt-app__toggle kt-app__aside" id="kt_user_profile_aside">
+
+                <!--begin:: Widgets/Applications/User/Profile1-->
+                <div class="kt-portlet kt-portlet--height-fluid-">
+                    <div class="kt-portlet__head  kt-portlet__head--noborder">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body kt-portlet__body--fit-y">
+
+
+                        <!--begin::Widget -->
+                        <div class="kt-widget kt-widget--user-profile-1">
+                            <div class="kt-widget__head">
+                                <div class="kt-widget__media">
+                                    <span th:if="${@userHeaderDetail.getData().getAvatar()==0}" class="kt-header__topbar-icon kt-bg-brand" ><b th:text="${@userHeaderDetail.getData().getLastName() == null || @userHeaderDetail.getData().getLastName().isEmpty() ? '?' : @userHeaderDetail.getData().getLastName().charAt(0)}"></b></span>
+                                    <img  alt="image" th:unless="${@userHeaderDetail.getData().getAvatar()==0}"  th:src="'/thumbnail/app/get/'+${@userHeaderDetail.getData().getAvatar()}+'/200'">
+                                </div>
+                                <div class="kt-widget__content">
+                                    <div class="kt-widget__section">
+                                        <span class="kt-widget__username" th:text="${@userHeaderDetail.getData().getFirstName()}+' '+ ${@userHeaderDetail.getData().getLastName()}">-</span>
+                                        <span class="kt-widget__subtitle" th:text="${@superVisor.isSuperVisor() ? 'مدیر' : ''}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="kt-widget__body">
+                                <div class="kt-widget__content">
+                                    <div class="kt-widget__info">
+                                        <span class="kt-widget__label" >پست الکترونیک</span>
+                                        <span class="kt-widget__data" th:text="${@userHeaderDetail.getData().getEmail()}">-</span>
+                                    </div>
+                                    <div class="kt-widget__info">
+                                        <span class="kt-widget__label">تلفن همراه</span>
+                                        <span class="kt-widget__data" th:text="${@userHeaderDetail.getData().getMobile()}">-</span>
+                                    </div>
+                                </div>
+                                <div th:remove="tag" th:if="${menuItems != null}">
+                                    <div th:replace="view/global/component/menuItemFragment.html::MenuItems(content = 'menuItems')"></div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--end::Widget -->
+                    </div>
+                </div>
+
+                <!--end:: Widgets/Applications/User/Profile1-->
+            </div>
+
+            <!--End:: App Aside-->
+
+            <!--Begin:: App Content-->
+            <div th:remove="tag" th:if="${overView != null}">
+                <div th:remove="tag" th:include="${overView}::appContent"></div>
+            </div>
+
+            <!--End:: App Content-->
+        </div>
+
+        <!--End::App-->
+    </div>
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <div th:remove="tag" th:if="${overView != null}">
+        <div th:remove="tag" th:include="${overView}::appScript"></div>
+    </div>
+</div>
+</body>
+</html>

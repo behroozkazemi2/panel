@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/css/pages/custom-rtl.css}" rel="stylesheet" type="text/css"/>
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">ثبت واحد جدید</h3>
+                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            </div>
+            <div class="kt-subheader__toolbar">
+                <a href="/admin/setting/unit" class="btn btn-default btn-bold">بازگشت </a>
+            </div>
+        </div>
+    </div>
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+                <!--begin:: Widgets/Sale Reports-->
+
+                <form autocomplete="off" id="kt_form" class="kt-form" th:object="${unitConfig}">
+                    <div class="kt-portlet__body">
+                        <div class="row">
+                            <div class="form-group col-12">
+                                <label>عنوان واحد</label>
+                                <input th:field="*{unit.name}" type="text" class="form-control"
+                                       placeholder="عنوان واحد">
+                                <input type="hidden" th:field="*{unit.id}">
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3 border-bottom">
+                            <div class="form-group col-md-6">
+                                <label>میزان مرخصی سالانه(روز)</label>
+                                <input th:field="*{maxVacationPreYear}" type="text" class="form-control"
+                                       placeholder="میزان مرخصی سالانه(روز)">
+                                <input type="hidden" th:field="*{id}">
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label>عنوان قرارداد</label>
+                                <select th:field="*{group.id}" class="form-control"
+                                        placeholder="قرارداد تابع">
+                                    <option th:if="${group}== null or ${group}==0"
+                                            value="0">بدون قرارداد
+                                    </option>
+                                    <option th:each="dropDownCityItem : ${contractGroup}"
+                                            th:value="${dropDownCityItem.id}"
+                                            th:text="${dropDownCityItem.text}"
+                                            th:selected="${group}!= null ? ${group.id} == ${dropDownCityItem.id}:false">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>شنبه تا چهارشنبه:</h5>
+                                <div class="row mt-3 mb-3 border-right">
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label">شروع</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text "><i
+                                                    class="la la-clock-o"></i></span></div>
+                                            <input type="text"
+                                                   th:value="*{startShanebeTaCharshanbe != null} ? *{hour.format(startShanebeTaCharshanbe)}"
+                                                   name="startShanebeTaCharshanbe"
+                                                   id="startShanebeTaCharshanbeDate"
+                                                   class="form-control cursor-pointer"
+                                                   aria-label="startShanebeTaCharshanbeDate"
+                                                   aria-describedby="startShanebeTaCharshanbeDate">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label">پایان</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><i
+                                                    class="la la-clock-o"></i></span></div>
+                                            <input type="text"
+                                                   th:value="*{endShanebeTaCharshanbe != null} ? *{hour.format(endShanebeTaCharshanbe)}"
+                                                   name="endShanebeTaCharshanbe"
+                                                   id="endShanebeTaCharshanbeDate"
+                                                   class="form-control cursor-pointer"
+                                                   aria-label="endShanebeTaCharshanbeDate"
+                                                   aria-describedby="endShanebeTaCharshanbeDate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>پنج‌شنبه:</h5>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label">شروع</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><i
+                                                    class="la la-clock-o"></i></span></div>
+                                            <input type="text"
+                                                   th:value="*{start5Shanebe != null} ? *{hour.format(start5Shanebe)}"
+                                                   id="start5ShanebeDate"
+                                                   name="start5Shanebe"
+                                                   class="form-control cursor-pointer"
+                                                   aria-label="start5ShanebeDate"
+                                                   aria-describedby="start5ShanebeDate">
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="col-form-label">پایان</label>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span
+                                                    class="input-group-text"><i
+                                                    class="la la-clock-o"></i></span></div>
+                                            <input type="text"
+                                                   th:value="*{end5Shanebe != null} ? *{hour.format(end5Shanebe)}"
+                                                   id="end5ShanebeDate"
+                                                   name="end5Shanebe"
+                                                   class="form-control cursor-pointer"
+                                                   aria-label="end5ShanebeDate"
+                                                   aria-describedby="end5ShanebeDate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="kt-portlet__foot">
+                        <div class="kt-form__actions text-right">
+                            <button type="submit" class="btn btn-success action-submit">ذخیره</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet_2">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">سوابق قرارداد</h3>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <div class="kt-datatable table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline" id="ajax_data"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--end::Portlet-->
+    <!--begin::Modal-->
+    <!-- remote datatable modal -->
+    <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}" ‌type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/persian-date.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/util.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/custom/apps/setting/unitAdd.js}" type="text/javascript"></script>
+
+</div>
+
+</body>
+</html>

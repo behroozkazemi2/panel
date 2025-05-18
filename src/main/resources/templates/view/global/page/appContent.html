@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<div th:remove="tag" th:fragment="style">
+</div>
+<body>
+<div th:remove="tag" th:fragment="appContent">
+<div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+    <div class="row">
+        <div class="col-xl-6 col-lg-6">
+
+            <!--begin:: Widgets/Order Statistics-->
+            <div class="kt-portlet kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            فعالیت‌های اخیر
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                    </div>
+                </div>
+                <div class="kt-portlet__body kt-portlet__body--fluid">
+                    <div class="kt-widget12">
+                    </div>
+                </div>
+            </div>
+
+            <!--end:: Widgets/Order Statistics-->
+        </div>
+        <div class="col-xl-6 col-lg-6">
+
+            <!--begin:: Widgets/Tasks -->
+            <div class="kt-portlet kt-portlet--tabs kt-portlet--height-fluid">
+                <div class="kt-portlet__head">
+                    <div class="kt-portlet__head-label">
+                        <h3 class="kt-portlet__head-title">
+                            ماموریت‌های پذیریش شده
+                        </h3>
+                    </div>
+                    <div class="kt-portlet__head-toolbar">
+                    </div>
+                </div>
+                <div class="kt-portlet__body">
+                    <div class="tab-content">
+
+                    </div>
+                </div>
+            </div>
+
+            <!--end:: Widgets/Tasks -->
+        </div>
+    </div>
+</div>
+</div>
+<div th:remove="tag" th:fragment="appScript">
+</div>
+</body>
+</html>

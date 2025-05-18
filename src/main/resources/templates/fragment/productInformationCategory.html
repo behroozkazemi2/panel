@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modal" th:remove="tag">
+    <div class="modal-header" th:fragment="modal">
+        <h5 class="modal-title">ثبت</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="product_info-cat" id="product_info-cat"
+              th:object="${detail}">
+            <div class="kt-infobox">
+                <div class="kt-infobox__body">
+
+                    <input type="hidden" id="id" name="id" th:value="*{id}">
+                    <input type="hidden" id="productId" name="productId" th:value="*{productId}">
+                    <input type="hidden" id="informationCategoryId" name="informationCategoryId" th:value="*{informationCategoryId}">
+                    <div class="form-switch-show">
+                        <div class="form-group row">
+                            <div class="col-lg-4 col-sm-12 form-group-sub">
+                                <span class="text-dark"> عنوان </span>
+                                <input type="text"
+                                       th:value="*{name}"
+                                       class=" form-control"
+                                       name="name"
+                                       id="name"
+                                       placeholder=" عنوان را وارد کنید">
+                            </div>
+                            <div class="col-lg-4 col-sm-12 form-group-sub">
+                                <span class="text-dark"> مقدار </span>
+                                <input type="text"
+                                       th:value="*{value}"
+                                       class=" form-control "
+                                       name="value"
+                                       id="value"
+                                       placeholder=" مقدار را وارد کنید">
+                            </div>
+                            <div class="col-lg-4 col-sm-12 form-group-sub">
+                                <span class="text-dark"> اولویت </span>
+                                <input type="number"
+                                       th:value="*{showOrder}"
+                                       class=" form-control "
+                                       name="showOrder"
+                                       id="showOrder"
+                                       placeholder=" اولویت را وارد کنید">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-clean btn-bold btn-upper btn-font-md" data-dismiss="modal">بستن
+                </button>
+                <div>
+                    <button type="button"
+                            class="btn btn-primary btn-bold btn-upper btn-font-md " id="submit">ثبت
+                    </button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

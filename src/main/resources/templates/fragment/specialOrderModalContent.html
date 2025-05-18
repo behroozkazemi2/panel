@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modal" th:remove="tag">
+    <div class="modal-header" th:fragment="modal">
+        <h5 class="modal-title">جزئیات سفارش</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+        <form class="kt-form" id="form-special-product-detail"
+              th:object="${specialProductSuggestionData}">
+            <div class="kt-infobox">
+                <div class="kt-infobox__body">
+                    <!-- Start Information of special-product & customer-->
+                    <div class="row">
+                        <div class="col-12">
+                            <!--begin::Portlet-->
+                            <!--begin::Section-->
+                            <div class="kt-section">
+                                <div class="kt-section__content">
+                                    <div class="table-responsive">
+                                        <table class="table table-light table-light--success">
+                                            <thead>
+                                            <tr class="justify-content-center">
+                                                <th class="kt-font-bold table-row-title justify-content-center"></th>
+                                                <td class="table-center"> اطلاعات سفارش</td>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">عکس</td>
+                                                <td class="table-center">
+                                                    <div class="dropzone dropzone-default dropzone-success"
+                                                         id="kt_dropzone_3">
+
+                                                        <div th:each="image:${specialProductSuggestionData.images}"
+                                                             th:id="'removed'+${image}"
+                                                             class="dz-preview dz-processing dz-success dz-complete dz-image-preview">
+                                                            <div class="dz-image">
+                                                                <img class="image-show"
+                                                                     th:src="'/thumbnail/files/0/'+${image}"
+                                                                     th:data-src="'/thumbnail/files/0/'+${image}">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">دسته‌بندی</td>
+                                                <td class="table-center" th:text="*{category.name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">منطقه</td>
+                                                <td class="table-center" th:text="*{region.name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">تاریخ ثبت</td>
+                                                <td class="table-center" id="insertDate" th:text="*{insertDate}"></td>
+                                                <input type="hidden" id="time" th:object="${time}" th:value="${time}">
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">وضعیت</td>
+                                                <td class="table-center" th:text="*{status.name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">توضیحات کاربر</td>
+                                                <td class="table-center" th:text="*{customerDescription}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--end::Section-->
+                            <!--end::Portlet-->
+                        </div>
+                    </div>
+                    <!-- End Information of special-product & customer-->
+                    <!--  provider fill form-->
+                    <div th:if="${!@superVisor.isSuperVisor()} and *{status.id} == 1">
+
+                            <form class="kt-form form-special-product-suggestion" id="form-special-product-suggestion">
+                                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile"
+                                     id="kt_page_portlet_1">
+                                    <div class="kt-portlet__body">
+                                        <input type="hidden" id="specialProductId" name="specialProductId"
+                                               th:field="*{id}">
+                                        <input type="hidden" id="providerId" name="providerId"
+                                               th:field="*{provider.id}">
+                                        <div class="form-group row">
+                                            <div class="col-lg-9 col-md-9 col-sm-12">
+                                                <span class="text-dark"> وضعیت : </span>
+                                                <input class="has-switch" data-switch="true" type="checkbox"
+                                                       name="accepted"
+                                                       id="accepted"
+                                                       checked="checked"
+                                                       data-on-text="قبول" data-handle-width="70" data-off-text="رد"
+                                                       data-on-color="brand">
+                                            </div>
+                                        </div>
+                                        <div class="form-switch-show">
+                                            <div class="form-group row">
+                                                <div class="col-lg-3 form-group-sub">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <span class="text-dark form-control-label">واحد :</span>
+                                                    </div>
+                                                    <div class="kt-checkbox-list ">
+                                                        <select class="form-control kt-select2 "
+                                                                id="productProviderUnit"
+                                                                name="productProviderUnit">
+                                                            <option th:each=" op : ${@unit.getMyUnit()}"
+                                                                    th:value=" ${op.id}"
+                                                                    th:text=" ${op.name}"></option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 form-group-sub">
+                                                    <span class="text-dark"> تعداد </span>
+                                                    <input type="text"
+                                                           class="change-on-key-up form-control form-count kt_touchspin_float "
+                                                           name="count" id="count"
+                                                           placeholder=" تعداد محصول را وارد کنید">
+                                                    <div id="count-error" class="error text-danger d-none">تعداد
+                                                        را
+                                                        وارد کنید
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3 form-group-sub">
+                                                    <span class="text-dark">قیمت واحد(ریال)</span>
+                                                    <input type="text"
+                                                           class=" change-on-key-up  form-control form-product-primitiveAmount kt_touchspin primitive-amount"
+                                                           name="primitiveAmount" id="primitiveAmount"
+                                                           placeholder="قیمت واحد محصول را وارد کنید">
+                                                    <div id="primitiveAmount-error" class="error text-danger d-none">
+                                                        قیمت
+                                                        واحد را
+                                                        وارد کنید
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-lg-3 form-group-sub">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <span class="text-dark form-control-label">هزینه اضافی(ریال)</span>
+                                                    </div>
+                                                    <input type="text"
+                                                           class="change-on-key-up  form-control form-product-primitiveAmount kt_touchspin extraPrice-amount"
+                                                           name="extraAmount" id="extraAmount"
+                                                           value="0"
+                                                           placeholder="هزینه اضافی محصول را وارد کنید">
+                                                    <div id="extraAmount-error" class="error text-danger d-none">هزینه
+                                                        اضافی
+                                                        را وارد
+                                                        کنید
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-lg-3 form-group-sub">
+                                                    <span class="text-dark">زمان آماده سازی (ساعت)</span>
+                                                    <input type="text"
+                                                           class="  form-control form-product-primitiveAmount kt_touchspin_hour "
+                                                           name="prepareHour" id="prepareHour"
+                                                           placeholder="زمان آماده سازی">
+                                                    <div id="prepareHour-error" class="error text-danger d-none">زمان
+                                                        آماده
+                                                        سازی را
+                                                        وارد کنید
+                                                    </div>
+
+                                                    <span class="form-text text-muted">زمان آماده سازی سفارش را وارد نمایید.</span>
+
+                                                </div>
+                                                <div class="col-lg-3 form-group-sub">
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <span class="text-dark form-control-label">قیمت نهایی  :</span>
+                                                    </div>
+                                                    <input type="text"
+                                                           disabled="disabled"
+                                                           class=" form-control kt_touchspin form-finalAmount"
+                                                           name="finalAmount" id="finalAmount"
+                                                           placeholder="قیمت نهایی محصول ">
+                                                </div>
+
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-12 form-group-sub">
+                                                    <span class="text-dark"> توضیح کامل : </span>
+                                                    <textarea type="text"
+                                                              name="fullDescription"
+                                                              id="fullDescription"
+                                                              class="form-control form-product-add-fullDescription"></textarea>
+                                                    <div id="fullDescription-error" class="error text-danger d-none">
+                                                        توضیح
+                                                        کامل را
+                                                        وارد کنید
+                                                    </div>
+
+                                                    <span class="form-text text-muted">در صورتی نیاز می‌توانید توضیحات خود را درباره سفارش در این قسمت وارد نمایید.</span>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                    </div>
+                </div>
+                <!-- End provider fill form-->
+                <!--  List of provider-offer -->
+                <div th:if="${@superVisor.isSuperVisor()}">
+                    <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile"
+                         id="kt_page_portlet">
+                        <div class="kt-portlet__body">
+                            <div id="modal_datatable_special_suggestion"
+                                 th:if="*{not #lists.isEmpty(suggestionResponse)}">
+                                <table class="table table-striped table-bordered table-hover table-checkable">
+                                    <thead>
+                                    <tr>
+                                        <th>تامین کننده</th>
+                                        <th>واحد</th>
+                                        <th>قیمت واحد</th>
+                                        <th>قیمت اضافی</th>
+                                        <th>قیمت کل</th>
+                                        <th>وضعیت</th>
+                                        <th>توضیحات</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="suggest :*{suggestionResponse}">
+                                        <td th:text="${suggest.provider.name}" class="kt-font-boldest">
+                                        </td>
+                                        <td th:text="${suggest.unit.name}" class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                        <td th:text="${suggest.unitAmount}" class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                        <td th:text="${suggest.extraAmount}" class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                        <td th:text="${suggest.unitAmount}+${suggest.extraAmount}"
+                                            class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                        <td th:if="${suggest.accept}" th:text="'قبول شد'"
+                                            class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                        <td th:unless="${suggest.accept}" th:text="'رد شد'"
+                                            class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                        <td th:text="${suggest.providerDescription}"
+                                            class=" kt-font-md kt-font-boldest">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="kt-font-lg justify-content-center kt-font-bold"
+                                 th:unless="*{not #lists.isEmpty(suggestionResponse)}">
+                                <span>پیشنهادی ثبت نشده است</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End List of provider-offer -->
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-clean btn-bold btn-upper btn-font-md" data-dismiss="modal">بستن
+                </button>
+                <div th:if="${!@superVisor.isSuperVisor()} and *{status.id} == 1">
+                        <button type="button"
+                                class="btn btn-primary btn-bold btn-upper btn-font-md " id="submit">ثبت
+                        </button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+
+</div>
+</body>
+</html>

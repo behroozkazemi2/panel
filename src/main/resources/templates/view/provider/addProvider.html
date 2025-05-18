@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/css/global/ol.css}" rel="stylesheet" type="text/css"/>
+
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">تامین کننده</h3>
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="" class="kt-subheader__breadcrumbs-link">ایجاد/ ویرایش تامین کننده </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <!--begin::Portlet-->
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile"
+                     id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">اطلاعات تامین کننده
+                                <small>پس از وارد کردن اطلاعات گزینه ثبت را بزنید.</small>
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+
+                            <div class="btn-group">
+                                <div class="kt-subheader__wrapper">
+                                    <a href="/admin/provider" class="btn btn-default btn-bold ">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="kt-form" th:object=" ${provider}" id="form-provider">
+                        <input type="hidden" th:field=" *{id}">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-9">
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-lg-3 col-form-label">تصویر</label>
+                                        <div class="col-lg-9 col-xl-6">
+                                            <div class="kt-avatar kt-avatar--outline kt-avatar--circle"
+                                                 id="kt_apps_user_add_avatar">
+                                                <div class="kt-avatar__holder"
+                                                     th:style=" *{logoId >0} ? 'background-image: url(/thumbnail/files/0/' +  *{logoId} + ')'"></div>
+                                                <label class="kt-avatar__upload"
+                                                       data-toggle="kt-tooltip" title=""
+                                                       data-original-title="Change avatar">
+                                                    <i class="fa fa-pen"></i>
+                                                    <input name="avatarFile" id="avatarFile" type="file">
+                                                    <input type="hidden" th:field=" *{logoId}">
+                                                </label>
+                                                <span class="kt-avatar__cancel"
+                                                      data-toggle="kt-tooltip" title=""
+                                                      data-original-title="Cancel avatar">
+                                                        <i class="fa fa-times"></i>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-4 form-group-sub">
+                                            <span class="text-dark">نام تامین کننده : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <input type="text" th:field=" *{name}"
+                                                   class="form-control form-provider-add-name"
+                                                   placeholder="نام و نام خانوداگی خود را وارد کنید"
+                                                   name="form-provider-add-name">
+                                        </div>
+                                        <div class="col-lg-8 form-group-sub">
+
+                                            <span class="text-dark">توضیح مختصر : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <input type="text"
+                                                   th:field=" *{shortDescription}"
+                                                   class="form-control form-provider-add-shortDescription"
+                                                   placeholder="توضیح مختصر درباره تامین کننده">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 col-md-12 col-ms-12  form-group-sub">
+                                            <div class="hover_category">
+                                                <span class="text-dark">منطقه فعالیت : </span>
+                                                <div class="map " id="kt_location"
+                                                     style="min-width: 460px;height: 460px;">
+                                                </div>
+                                                <input hidden name="locationString" id="locationString" th:value="${locationString}">
+
+                                                <button class="btn btn-primary form-group  col-12" id="clear_map"> پاک
+                                                    کردن نقشه
+
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-ms-12 form-group-sub">
+                                            <span class="text-dark small ">حداقل روز برای تحویل : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <input type="text"
+                                                   class="form-control kt_touchspin_minDay form-provider-add-minday "
+                                                   th:field=" *{minDay}"
+                                                   th:value="*{minDay} == 0 ? 1 : *{minDay}"
+                                                   placeholder="حداقل روز برای تحویل را وارد کنید">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 form-group-sub">
+                                            <span class="text-dark">آدرس : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <textarea type="text" th:field=" *{address}"
+                                                      class="form-control form-provider-add-address"
+                                                      placeholder="آدرس خود را وارد کنید"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-12 form-group-sub">
+
+                                            <span class="text-dark"> توضیح کامل : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <textarea type="text"
+                                                      th:field=" *{fullDescription}"
+                                                      class="form-control form-provider-add-fullDescription"
+                                                      placeholder=" توضیح کامل درباره تامین کننده"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-lg-6 col-md-6 col-ms-12 form-group-sub">
+                                            <span class="text-dark">شماره پشتیبانی : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <input type="number"
+                                                   class=" form-control arrow-disable  form-provider-add-phone "
+                                                   numberic
+                                                   th:field=" *{phone}"
+                                                   placeholder="شماره پشتیبانی را وارد کنید">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-ms-12 form-group-sub">
+                                            <span class="text-dark">آیدی اینستاگرام : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <input type="text"
+                                                   class="form-control form-provider-add-instagramId"
+                                                   th:field=" *{instagramId}"
+                                                   placeholder="آیدی اینستاگرام خود را وارد کنید">
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-ms-12 form-group-sub mt-2">
+                                            <span class="text-dark">آیدی تلگرام : </span>
+                                            <span class="text-success small">( جهت نمایش به مدیر) </span>
+                                            <input type="text"
+                                                   class="form-control  form-provider-add-telegramId"
+                                                   placeholder="آیدی تلگرام خود را وارد کنید"
+                                                   th:field=" *{telegramId}">
+                                        </div>
+                                        <!--                                        <div class="col-lg-6 col-md-6 col-ms-12 form-group-sub mt-2">-->
+                                        <!--                                            <span class="text-dark"> تلفن ضروری : </span>-->
+                                        <!--                                            <span class="text-success small">( جهت نمایش به مدیر) </span>-->
+                                        <!--                                            <input type="number"-->
+                                        <!--                                                   class="form-control arrow-disable form-provider-add-emergency "-->
+                                        <!--                                                   placeholder=" شماره همراه خود خود را وارد کنید">-->
+                                        <!--                                            <span class="form-text text-muted small">-->
+                                        <!--                                                            درصورت در دسترس نبودن شماره تماس ثبت شده در سامانه با این شماره تماس گرفته می‌شود.-->
+                                        <!--                                                        </span>-->
+                                        <!--                                        </div>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__foot">
+                            <div class="kt-form__actions">
+                                <div class="btn btn-outline-info btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                     data-ktwizard-type="action-submit">
+                                    ثبت
+                                </div>
+                                <a href="/admin/provider"
+                                   class="btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u btn btn-outline-danger ">لغو</a>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <!--end::Portlet-->
+            </div>
+        </div>
+    </div>
+
+
+    <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}"
+            type="text/javascript"></script>
+
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/js/maps/ol.js}" type="text/javascript"></script>
+    <!--    <script th:src="@{/assets/js/maps/rajmanMap.js}" type="text/javascript"></script>-->
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}"
+            ‌type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/persian-date.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/util.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/select2_js/select2.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/pNumber-to-eNumber/pNumber-to-eNumber.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/provider/addressMap.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/provider/addProvider.js}" type="text/javascript"></script>
+
+</div>
+
+</body>
+</html>

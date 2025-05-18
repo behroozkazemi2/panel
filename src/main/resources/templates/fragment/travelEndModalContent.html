@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modal" th:remove="tag">
+    <div class="modal-header" th:fragment="modal">
+        <h5 class="modal-title">جزئیات ماموریت</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="kt-infobox">
+            <div class="kt-infobox__body">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="kt-infobox__content">
+                                    <form id="form-finish" th:object="${data}">
+                                        <div class="table-responsive">
+                                            <table class="table table-light table-light--success">
+                                                <thead>
+                                                <tr>
+                                                    <th colspan="4" class="kt-font-bold table-row-title">اطلاعات ماموریت
+                                                    </th>
+
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">عنوان</td>
+                                                    <td colspan="3" class="table-center" th:text="${data.title}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">متقاضی</td>
+                                                    <td class="table-center">
+                                                        <span th:text="${data.requester}"></span>
+                                                    </td>
+                                                    <td class="kt-font-bold table-row-title">موبایل</td>
+                                                    <td class="table-center" th:text="${data.requesterMobile}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">تاریخ شروع</td>
+                                                    <td class="table-center"
+                                                        th:text="${data.getPersianDateAndHour(data.scheduleTimeStart)}"></td>
+                                                    <td class="kt-font-bold table-row-title">تاریخ پایان</td>
+                                                    <td class="table-center"
+                                                        th:text="${data.getPersianDateAndHour(data.requestTimeEnd)}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">مبدا</td>
+                                                    <td class="table-center" th:text="${data.beginningAddress}"></td>
+                                                    <td class="kt-font-bold table-row-title">مقصد</td>
+                                                    <td class="table-center" th:text="${data.destinationAddress}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">تاریخ ثبت</td>
+                                                    <td colspan="3" class="table-center"
+                                                        th:text="${data.getPersianDateAndHour(data.requestDate)}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">همراهان</td>
+                                                    <td colspan="3" class="table-center" th:text="${data.partner}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="kt-infobox__content">
+                                    <div class="table-responsive">
+                                        <table class="table table-light table-light--default">
+                                            <thead>
+                                            <tr>
+                                                <th class="kt-font-bold table-row-title">اطلاعات
+                                                    راننده
+                                                </th>
+                                                <th class="table-right">
+                                                    <div class="kt-user-card-v2">
+
+                                                        <div class="kt-user-card-v2__pic kt-block-center">
+                                                            <img th:if="${data.driverAvatarId}>0"
+                                                                 th:src="'/thumbnail/app/get/'+ ${data.driverAvatarId}+'/200'"
+                                                                 class="m-img-rounded kt-marginless" alt="photo">
+                                                        </div>
+                                                    </div>
+                                                </th>
+
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">نام</td>
+                                                <td class="table-center" th:text="${data.driverName}">
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">تلفن همراه</td>
+                                                <td class="table-center" th:text="${data.driverMobile}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">واحد</td>
+                                                <td class="table-center" th:text="${data.driverUnit.name}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">خودرو</td>
+                                                <td class="table-center" th:text="${data.vehicleName}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">پلاک</td>
+                                                <td class="table-center"
+                                                    th:text="${data.plate.toString()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="kt-portlet__body">
+                            <div class="map-section">
+                                <input type="hidden" th:attr="data-travel-id=${data.id},
+                                                                  data-orgin-lat=${data.originLat} ,
+                                                                  data-orgin-long=${data.originLng} ,
+                                                                  data-destination-lat=${data.destinationLat} ,
+                                                                  data-destination-long= ${data.destinationLng}">
+                                <div id="kt_gmap_8" style="height: 450px"></div>
+
+                                <div class="alert alert-solid-danger alert-bold kt-margin-t-20" id="marker-alert"
+                                     style="display: none;" role="alert">
+                                    <div class="alert-text">برای این ماموریت موقعیت مکانی ثبت نشده است!</div>
+                                </div>
+                                <div class="alert alert-solid-danger alert-bold kt-margin-t-10" id="point-alert"
+                                     style="display: none;" role="alert">
+                                    <div class="alert-text">برای این ماموریت موقعیت راننده برداشت نشده است!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="kt-infobox__content">
+                            <div class="table-responsive">
+                                <table class="table table-light table-light--danger">
+                                    <thead>
+                                    <tr>
+                                        <th class="kt-font-bold table-row-title">تخصیص دهنده
+                                        </th>
+                                        <th class="table-right">
+                                            <div class="kt-user-card-v2">
+                                                <div class="kt-user-card-v2__pic kt-block-center">
+                                                    <img th:if="${data.operatorAvatarId}>0"
+                                                         th:src="'/thumbnail/app/get/'+ ${data.operatorAvatarId}+'/200'"
+                                                         class="m-img-rounded kt-marginless" alt="photo">
+                                                </div>
+                                            </div>
+                                        </th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="kt-font-bold table-row-title">نام</td>
+                                        <td class="table-center" th:text="${data.operatorName}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kt-font-bold table-row-title">واحد</td>
+                                        <td class="table-center" th:text="${data.operatorUnit.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kt-font-bold table-row-title">تاریخ تخصیص</td>
+                                        <td class="table-center"
+                                            th:text="${data.getPersianDateAndHour(data.operatorAssignDate)}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="kt-infobox__content">
+                            <div class="table-responsive">
+                                <table class="table table-light table-light--success">
+                                    <thead>
+                                    <tr>
+                                        <th class="kt-font-bold table-row-title">تایید کننده
+                                        </th>
+                                        <th class="table-right">
+                                            <div class="kt-user-card-v2">
+                                                <div class="kt-user-card-v2__pic kt-block-center">
+                                                    <img th:if="${data.acceptorAvatarId}>0"
+                                                         th:src="'/thumbnail/app/get/'+ ${data.acceptorAvatarId}+'/200'"
+                                                         class="m-img-rounded kt-marginless" alt="photo">
+                                                </div>
+                                            </div>
+                                        </th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td class="kt-font-bold table-row-title">نام</td>
+                                        <td class="table-center" th:text="${data.acceptorName}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kt-font-bold table-row-title">واحد</td>
+                                        <td class="table-center" th:text="${data.acceptorUnit.name}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="kt-font-bold table-row-title">تاریخ تایید</td>
+                                        <td class="table-center"
+                                            th:text="${data.getPersianDateAndHour(data.acceptorDate)}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xl-6">
+
+                        <div class="kt-portlet__body">
+                            <div class="kt-infobox__section">
+                                <div class="kt-infobox__content">
+                                    <div class="table-responsive">
+                                        <table class="table table-light table-light--warning">
+                                            <thead>
+                                            <tr>
+                                                <th>عنوان</th>
+                                                <th class="table-center">توضیحات</th>
+                                                <th>عنوان</th>
+                                                <th class="table-center">توضیحات</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">وضعیت ماموریت</td>
+                                                <td class="table-center" th:text="${data.travelStatus.name}"></td>
+                                                <td class="kt-font-bold table-row-title"></td>
+                                                <td class="table-center"></td>
+
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">شروع (راننده)</td>
+                                                <td class="table-center"
+                                                    th:text="${data.driverStartTime!= null}?${data.getPersianDateAndHour(data.driverStartTime)}"></td>
+                                                <td class="kt-font-bold table-row-title">شروع درخواست اولیه</td>
+                                                <td class="table-center"
+                                                    th:text="${data.driverEndTime!= null}?${data.getPersianDateAndHour(data.driverStartingClick)}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">پایان (راننده)</td>
+                                                <td class="table-center"
+                                                    th:text="${data.driverStartingClick!= null}?${ data.getPersianDateAndHour(data.driverEndTime)}"></td>
+                                                <td class="kt-font-bold table-row-title">پایان درخواست اولیه</td>
+                                                <td class="table-center"
+                                                    th:text="${data.driverEndingClick!= null}?${ data.getPersianDateAndHour(data.driverEndingClick)}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">کیلومتر شروع</td>
+                                                <td class="table-center" th:text="${data.startKm}"></td>
+                                                <td class="kt-font-bold table-row-title">کیلومتر پایان</td>
+                                                <td class="table-center" th:text="${data.endKm}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">ساعت اضافه کار</td>
+                                                <td class="table-center" th:text="${ data.extraHour/60 } + ' : ' + ${ data.extraHour%60 }" ></td>
+                                                <td class="kt-font-bold table-row-title">مبلغ</td>
+                                                <td class="table-center" th:text=" ${ #numbers.formatDecimal(data.paymentExtraHour, 1, 0)} " ></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">کیلومتراژ </td>
+                                                <td class="table-center" th:text="${ data.kilometer}" ></td>
+                                                <td class="kt-font-bold table-row-title">مبلغ</td>
+                                                <td class="table-center" th:text="${ #numbers.formatDecimal(data.paymentExtraKm, 1, 0)}" ></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="kt-font-bold table-row-title">شب خواب</td>
+                                                <td class="table-center" th:text="${ data.nightSleep}" ></td>
+                                                <td class="kt-font-bold table-row-title">مبلغ</td>
+                                                <td class="table-center" th:text="${ #numbers.formatDecimal(data.paymentExtraNight, 1, 0)}" ></td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+    </div>
+
+
+</div>
+</body>
+</html>

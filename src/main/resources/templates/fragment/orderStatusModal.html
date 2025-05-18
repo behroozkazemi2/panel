@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modal" th:remove="tag">
+    <div class="modal-header" th:fragment="modal">
+        <h5 class="modal-title">تغییر وضعبت سفارش</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+         <div class="kt-infobox">
+            <div class="kt-infobox__body">
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <form >
+                            <input hidden id="modal-order-id" th:value="${orderId}">
+                            <div class="form-group">
+                                <label>وضعبت</label>
+                                <div class="kt-radio-inline">
+
+                                    <label class="kt-radio kt-radio--bold kt-radio--dark">
+                                        <input class="radio-status" type="radio"  data-id="1" > ثبت شده
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--bold kt-radio--warning">
+                                        <input class="radio-status" type="radio"  data-id="2"> درحال آماده سازی
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--bold kt-radio--primary">
+                                        <input class="radio-status" type="radio"  data-id="3"> ارسال شده
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--bold kt-radio--success">
+                                        <input class="radio-status" type="radio"  data-id="4"> تحویل داده شده
+                                        <span></span>
+                                    </label>
+                                    <label class="kt-radio kt-radio--bold kt-radio--danger">
+                                        <input class="radio-status" type="radio"  data-id="5"> لغو شده
+                                        <span></span>
+                                    </label>
+
+                                </div>
+                                <span class="form-text text-muted"> برای تغییر، وضعیت را انتخاب کرده و گزینه ثبت را بزنید.</span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+        <button type="button" class="btn btn-primary btn-submit">ذخیره</button>
+    </div>
+
+</div>
+</body>
+</html>

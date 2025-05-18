@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<div th:fragment="text" th:remove="tag">
+
+    <!--    kt-inbox__message&#45;&#45;expanded-->
+    <div th:each=" msg,itter : ${msg}" class="kt-inbox__message " th:classappend="(${itter.index + 1}  == ${itter.size} )? 'kt-inbox__message--expanded' : '' "  >
+        <div class="kt-inbox__head">
+
+            <div class="kt-inbox__info ">
+                <div class="kt-inbox__author" data-toggle="expand">
+
+
+                                <span th:classappend="${msg.admin == true} ?  'kt-badge--unified-info' : 'kt-badge--unified-success' " class="kt-badge kt-badge--username  kt-badge--md mr-2  kt-badge--bold"
+                                      th:text="${msg.name[0]}">
+
+                                </span>
+
+                    <a  class="kt-inbox__name" th:text="${msg.name}"> </a> <span class="text-muted"
+                                                                                         th:text="${msg.role}">  </span>
+<!--                    <div class="kt-inbox__status  ml-3">-->
+<!--                        <span class="kt-badge kt-badge&#45;&#45;success kt-badge&#45;&#45;dot"></span> یک روز قبل-->
+<!--                    </div>-->
+                </div>
+                <div class="kt-inbox__details">
+
+                    <div class="kt-inbox__desc mt-1" data-toggle="expand" th:text="${msg.summaryText}">
+
+                    </div>
+                </div>
+            </div>
+            <div class="kt-inbox__actions">
+                <div class="kt-inbox__datetime" data-toggle="expand" th:text="${msg.insertDate}">
+
+                </div>
+                <div class="kt-inbox__group">
+                    <!--															<span class="kt-inbox__icon kt-inbox__icon&#45;&#45;label kt-inbox__icon&#45;&#45;light" data-toggle="kt-tooltip" data-placement="top" title="Star">-->
+                    <!--																<i class="flaticon-star"></i>-->
+                    <!--															</span>-->
+                    <!--                                        <span class="kt-inbox__icon kt-inbox__icon&#45;&#45;label kt-inbox__icon&#45;&#45;light" data-toggle="kt-tooltip" data-placement="top" title="Mark as important">-->
+                    <!--																<i class="flaticon-add-label-button"></i>-->
+                    <!--															</span>-->
+                    <!--                                        <span class="kt-inbox__icon kt-inbox__icon&#45;&#45;reply kt-inbox__icon&#45;&#45;light" data-toggle="kt-tooltip" data-placement="top" title="Reply">-->
+                    <!--																<i class="flaticon2-reply-1"></i>-->
+                    <!--															</span>-->
+                    <span class="kt-inbox__icon kt-inbox__icon--light" data-toggle="kt-tooltip"
+                          data-placement="top">
+																<i class="la la-ellipsis-v"></i>
+															</span>
+                </div>
+            </div>
+        </div>
+        <div class="kt-inbox__body">
+            <div class="kt-inbox__text">
+                <p class="kt-margin-t-5  kt-margin-r-40-desktop text-justify justify-content-center text-dark-75" th:text="${msg.text}">
+
+                </p>
+            </div>
+            <div class="col-12  mt-5 mr-auto ml-auto " >
+                <div class="dropzone dropzone-default  rounded-lg text-left   dz-started" id="kt_dropzone_3"  th:if="${msg.doc.size != 0}" style="cursor: default!important;">
+                    <div class="dz-preview dz-file-preview dz-processing"  th:each="doc : ${msg.doc}"   >
+                        <div class="dz-image bg-transparent mr-auto ml-auto text-center " style="width: 70px;height: 55px">
+                            <img class=" mb-0 mr-auto " width="50px" height="50px"    th:src="${doc.type} == 4 ? '/assets/images/files/pdf.svg' : '/assets/images/files/jpg.svg'"  data-dz-thumbnail=""></div>
+
+                        <a class="text-dark-75 ml-auto mr-auto font-size-14 mt-0" th:href=" '/file/download/' + ${doc.id}" th:text="${doc.name}"  > </a></div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</html>

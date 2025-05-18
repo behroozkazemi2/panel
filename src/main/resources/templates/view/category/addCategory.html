@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/css/pages/custom-rtl.css}" rel="stylesheet" type="text/css"/>
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">دسته بندی </h3>
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="" class="kt-subheader__breadcrumbs-link">ایجاد </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- begin:: Content -->
+
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile"
+                     id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">اطلاعات دسته بندی
+                                <small>پس از وارد کردن اطلاعات گزینه ثبت را بزنید.</small>
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="btn-group">
+                                <div class="kt-subheader__wrapper">
+                                    <a href="/admin/category/" class="btn btn-default btn-bold ">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--begin::Portlet-->
+                    <!--begin::Form-->
+                    <form class="kt-form" id="form-category" th:object="${category}">
+                        <div class="kt-portlet__body">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-9">
+                                    <div class="form-group row">
+                                        <div class="form-group row col-12">
+                                            <div class="col-lg-12 col-md-12">
+                                                <span class="text-dark form-control-label"> عکس دسته بندی: </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div class="dropzone dropzone-default dropzone-success"
+                                                     id="kt_dropzone_3">
+
+                                                    <div  th:if="*{imageId} != 0"
+                                                         th:id="'removed'+*{imageId}"
+                                                         class="dz-preview dz-processing dz-success dz-complete dz-image-preview">
+                                                        <div class="dz-image">
+                                                            <img th:src="'/thumbnail/files/0/'+*{imageId}">
+                                                        </div>
+                                                        <a class="remove-image"
+                                                           th:data-id="*{imageId}"
+                                                           data-dz-remove="">حذف فایل</a>
+                                                    </div>
+                                                    <div class="col-sm spinner_loading d-none"
+                                                         style="z-index: 1000">
+                                                        <div class="kt-spinner kt-spinner--lg kt-spinner--danger"></div>
+                                                        <span>در حال بار گزاری عکس </span>
+                                                    </div>
+                                                    <div class="dropzone-msg dz-message needsclick">
+                                                        <h3 class="dropzone-msg-title">جهت
+                                                            بارگزاری
+                                                            کلیک کنید یا فایل را داخل کادر
+                                                            بکشید</h3>
+                                                        <span class="dropzone-msg-desc small"> فایل با فرمت عکس و حجم کمتر از ۱۰ مگابایت معتبر می باشد!</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-4 col-md-4 col-ms-12 form-group-sub">
+                                            <span class="text-dark">دسته بندی  : </span>
+                                            <span class="small">(نمایش در سایت)</span>
+                                            <div class="kt-checkbox-list ">
+                                                <select th:field="*{parent}"
+                                                        class="  form-control kt-select2 category-list">\
+                                                    <option value="0"> دسته بندی جدید</option>
+                                                    <option th:each=" list : ${@categoryList.getMyCategory()}"
+                                                            th:value=" ${list.id}"
+                                                            th:text=" ${list.name}"
+                                                        ></option>
+                                                </select>
+                                            </div>
+                                            <div id="checkBox-error-1"></div>
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-ms-12 form-group-sub">
+
+                                            <span class="text-dark"> زیر دسته : </span>
+                                            <span>(نمایش در سایت)</span>
+
+                                            <input th:field="*{name}"
+                                                   type="text"
+                                                   class="form-control form-add-category "
+                                                   placeholder=" نام  دسته بندی  را وارد کنید">
+                                            <input th:field="*{id}"
+                                                   type="hidden"
+                                                   class="form-control form-add-category ">
+                                        </div>
+                                        <div class="col-lg-4 col-md-4 col-ms-12 form-group-sub">
+                                            <span class="text-dark">اولویت نمایش :</span>
+                                            <input th:field="*{showOrder}"
+                                                   type="text"
+                                                   class="form-control form-add-category ">
+                                        </div>
+                                        <div class="mt-4 col-lg-12 col-md-12 col-ms-12 form-group-sub">
+
+                                            <span class="text-dark">توضیحات :</span>
+                                            <span>(نمایش در سایت)</span>
+
+                                            <input th:field="*{description}"
+                                                   type="text"
+                                                   class="form-control form-add-category "
+                                                   placeholder=" توضیحات  دسته بندی  را وارد کنید">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kt-portlet__foot">
+                            <div class="kt-form__actions">
+                                <div class="btn btn-outline-info btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                     data-ktwizard-type="action-submit">
+                                    ثبت
+                                </div>
+                                <a href="/admin/category"
+                                   class="btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u btn btn-outline-danger ">لغو</a>
+                            </div>
+                        </div>
+
+                    </form>
+
+                    <!--end::Form-->
+                    <!--end::Portlet-->
+                </div>
+                <!-- end:: Content -->
+            </div>
+        </div>
+
+
+        <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-md modal-dialog-centered">
+                <div class="modal-content">
+                </div>
+            </div>
+        </div>
+
+        <!--end::Modal-->
+
+        <!-- end:: Content -->
+    </div>
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}"
+            type="text/javascript"></script>
+
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}"
+            ‌type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/persian-date.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/util.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/select2_js/select2.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/category/addCategory.js}" type="text/javascript"></script>
+
+</div>
+
+</body>
+</html>

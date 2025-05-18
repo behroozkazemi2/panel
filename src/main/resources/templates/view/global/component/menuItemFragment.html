@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="MenuItems">
+    <div class="kt-widget__items">
+        <a th:each="menuItem : ${menuItems.getMenuItem()}" th:href="${menuItem.getActionUrl()}"
+           th:class="${menuItem.isSelected()} ? 'kt-widget\_\_item kt-widget\_\_item--active' : 'kt-widget__item'">
+			<span class="kt-widget__section">
+								<span class="kt-widget__icon" >
+                                    <div th:remove="tag" th:utext="${menuItem.getIcon()}"></div>
+                                </span>
+								<span class="kt-widget__desc" th:text="${menuItem.getTitle()}"></span>
+			</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

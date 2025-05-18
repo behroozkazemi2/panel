@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modal" th:remove="tag">
+    <div class="modal-header" th:fragment="modal">
+        <h5 class="modal-title">جزئیات درخواست</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+         <div class="kt-infobox">
+                    <div class="kt-infobox__body">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <div class="kt-infobox__section">
+                                    <div class="kt-infobox__content">
+                                        <div class="table-responsive">
+                                            <table class="table table-light table-light--success">
+                                                <thead>
+                                                <tr>
+                                                    <th class="kt-font-bold table-row-title">متقاضی</th>
+                                                    <th class="table-center"></th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">مشخصات راننده</td>
+                                                    <td class="table-center" th:text="${data.firstName} + ' ' + ${data.lastName}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">شماره موبایل</td>
+                                                    <td class="table-center" th:text="${data.mobile}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">نوع مرخصی</td>
+                                                    <td class="table-center">
+                                                        <span th:if="${data.daily}" class="kt-badge kt-badge--warning kt-badge--inline kt-badge--pill">روزانه</span>
+                                                        <span th:unless="${data.daily}" class="kt-badge kt-badge--success kt-badge--inline kt-badge--pill">ساعتی</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">ثبت درخواست</td>
+                                                    <td class="table-center" th:text="${data.getPersianDateAndHour(data.requestDate)}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">ازتاریخ</td>
+                                                    <td th:if="${data.daily}" class="table-center" th:text="${data.dateToPersianDate(data.startDate)}"></td>
+                                                    <td th:unless="${data.daily}" class="table-center" th:text="${data.getPersianDateAndHour(data.startDate)}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">تاتاریخ</td>
+                                                    <td th:if="${data.daily}" class="table-center" th:text="${data.dateToPersianDate(data.endDate)}"></td>
+                                                    <td th:unless="${data.daily}" class="table-center" th:text="${data.getPersianDateAndHour(data.endDate)}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="kt-infobox__section">
+                                    <div class="kt-infobox__content">
+                                        <div class="table-responsive">
+                                            <table class="table table-light table-light--warning">
+                                                <thead>
+                                                <tr>
+                                                    <th>عنوان ماموریت</th>
+                                                    <th class="table-center">درخواست کننده</th>
+                                                    <th class="table-center">تاریخ شروع</th>
+                                                    <th class="table-center">تاریخ پایان</th>
+                                                    <th class="table-center">مبدا</th>
+                                                    <th class="table-center">مقصد</th>
+                                                    <th class="table-center">تاریخ ثبت</th>
+                                                    <th class="table-center">تایید کننده</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody:block th:each="travel: ${data.travels}">
+                                                <tr>
+                                                    <td th:if="${travel.conflict}" >
+                                                        <span  class="kt-badge kt-badge--danger kt-badge--dot"></span>
+                                                        &nbsp;<span class="kt-font-bold kt-font-danger" th:text="${travel.title}"></span>
+                                                    </td>
+                                                    <td th:unless="${travel.conflict}">
+                                                        &nbsp;<span class="kt-font-bold kt-font-default" th:text="${travel.title}"></span>
+                                                    </td>
+                                                    <td class="table-center" th:text="${travel.requesterName}"></td>
+                                                    <td class="table-center" th:text="${travel.getPersianDateAndHour(travel.fromDate)}"></td>
+                                                    <td class="table-center" th:text="${travel.getPersianDateAndHour(travel.toDate)}"></td>
+                                                    <td class="table-center" th:text="${travel.fromAddress}"></td>
+                                                    <td class="table-center" th:text="${travel.toAddress}"></td>
+                                                    <td class="table-center" th:text="${travel.getPersianDateAndHour(travel.requestInsertDate)}"></td>
+                                                    <td class="table-center" th:text="${travel.accepterOperator}"></td>
+                                                </tr>
+                                                </tbody:block>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+        <button type="button" class="btn btn-danger"  th:attr="data-reject=${data.id}+'/3'">رد درخواست</button>
+        <button type="button" class="btn btn-primary" th:attr="data-accept=${data.id}+'/2'">تایید</button>
+    </div>
+
+</div>
+</body>
+</html>

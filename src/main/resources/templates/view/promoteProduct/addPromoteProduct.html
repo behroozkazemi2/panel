@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+
+    <link th:href="@{/assets/css/jquery.md.bootstrap.datetimepicker.style.css}" rel="stylesheet" type="text/css"/>
+
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+
+
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    محصولات </h3>
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="" class="kt-subheader__breadcrumbs-link">
+                        محصول رویداد </a>
+                    <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <!-- begin:: Content -->
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile"
+                     id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                ایجاد رویداد جدید
+                                <small>پس از وارد کردن اطلاعات گزینه ثبت را بزنید.</small>
+
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="btn-group">
+                                <div class="kt-subheader__wrapper">
+                                    <a href="/admin/promoteProduct" class="btn btn-default btn-bold ">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <form class="kt-form form-promote-product" th:object=" ${promoteProduct}">
+                        <div class="kt-portlet__body">
+
+                            <input type="text" th:field=" *{id}" hidden>
+                            <input type="text" id="products" th:value=" ${products}" hidden>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-9">
+                                    <div class="kt-portlet__body">
+                                        <div class="form-group row">
+                                            <div class="col-3 form-group-sub mt-4">
+                                                <span class="col-form-label text-dark">نام رویداد: </span>
+                                                <input
+                                                       th:field=" *{name}"
+                                                       class="form-control ">
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label class="col-form-label">* زمان شروع</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text cursor-pointer" id="startDate"
+                                                            data-mdpersiandatetimepicker="" data-original-title=""
+                                                            title=""><i class="la la-calendar"></i></span></div>
+                                                    <input type="text" id="startTimeStamp" name="ssDate"
+                                                           class="form-control" aria-label="startDate"
+                                                           aria-describedby="startDate">
+                                                    <input type="hidden"  id="startTimeStampDate" th:field="*{startDate}"
+                                                           class="form-control" aria-label="startDate"
+                                                           aria-describedby="startDate" >
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label class="col-form-label">* زمان پایان</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend"><span
+                                                            class="input-group-text cursor-pointer" id="endDate"
+                                                            data-mdpersiandatetimepicker="" data-original-title=""
+                                                            title=""><i class="la la-calendar"></i></span></div>
+                                                    <input type="text" id="endTimeStamp" name="ssDate"
+                                                           class="form-control" aria-label="endDate"
+                                                           aria-describedby="endDate">
+                                                    <input type="hidden" id="endTimeStampDate" th:field="*{endDate}"
+                                                           class="form-control" aria-label="endDate"
+                                                           aria-describedby="endDate" >
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label class="col-form-label">* ساعت شروع</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control timepicker timepicker-24" name="startTimeString"  id="startTime" th:value="*{startTime}">
+                                                    <span class="input-group-btn">
+                                                                <button class="btn default" type="button">
+                                                                    <i class="fa fa-clock-o"></i>
+                                                                </button>
+                                                            </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 form-group">
+                                                <label class="col-form-label">* ساعت پایان</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control timepicker timepicker-24" name="endTimeString" id="endTime" th:value="*{endTime}">
+                                                    <span class="input-group-btn">
+                                                                <button class="btn default" type="button">
+                                                                    <i class="fa fa-clock-o"></i>
+                                                                </button>
+                                                            </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12 form-group-sub">
+                                                <span class="text-dark">نام محصول تو تامیین کننده  کننده : </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <select th:field="*{productProviderIds}" multiple
+                                                        class="form-control kt-select2 pp-select2">
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="kt-portlet__foot">
+                                        <div class="kt-form__actions">
+                                            <div class="btn btn-outline-info btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                 data-ktwizard-type="action-submit">
+                                                ثبت
+                                            </div>
+                                            <a href="/admin/promoteProduct"
+                                               class="btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u btn btn-outline-danger ">لغو</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- end:: Content -->
+    </div>
+    <!--end::Portlet-->
+    <!--begin::Modal-->
+    <!-- remote datatable modal -->
+    <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}"
+            type="text/javascript"></script>
+
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/persian-date.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/util.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/select2_js/select2.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/moneyFormat/moneyFormat.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/pNumber-to-eNumber/pNumber-to-eNumber.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/promoteProduct/addPromoteProduct.js}" type="text/javascript"></script>
+
+</div>
+
+</body>
+</html>

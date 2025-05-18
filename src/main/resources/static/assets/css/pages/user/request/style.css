@@ -1,0 +1,30 @@
+.dir-ltr {
+    direction: ltr !important;
+}
+
+#kt_gmap_8 {
+    height:425px;
+}
+
+.map-section {
+    position: relative;
+}
+
+.pointer-helper {
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    left: 0;
+    right: 0;
+    height: 30px;
+    top: 10px;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 40%;
+    margin: auto;
+    cursor: pointer;
+
+}
+.pointer-helper:hover{
+    background: lightsteelblue;
+}

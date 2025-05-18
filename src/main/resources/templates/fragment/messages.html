@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<div th:fragment="text" th:remove="tag">
+
+    <section th:remove="tag" th:each=" msg,itter : ${msg}" >
+        <div style="width: 50%;" class="container" th:classappend="${msg.admin} ? 'right': 'left' " >
+        <div class="content" th:style="'border-radius: 15px; margin-right: -30px; background:' + (${msg.admin} ? '#545454;color:white;margin-left:20px;width:97%' : '#265CC7;color:white;'  + '')"  >
+            <span>[[${msg.insertDate}]] - [[${msg.name}]]</span>
+            <div class="mt-2" style="white-space: pre;" th:utext="${msg.text}">
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+</html>

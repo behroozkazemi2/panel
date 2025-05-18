@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:tr="http://www.thymeleaf.org" xmlns:tbody="http://www.thymeleaf.org">
+<div th:fragment="modal" th:remove="tag">
+
+
+    <div class="kt-inbox__form" id="kt_inbox_compose_form ">
+        <form id="save-ticket-form">
+        <div class="kt-inbox__head">
+            <div class="kt-inbox__title">ثبت تیکت جدید</div>
+            <div class="kt-inbox__actions">
+                <button type="button" class="kt-inbox__icon kt-inbox__icon--md kt-inbox__icon--light"
+                        data-dismiss="modal">
+                    <i class="flaticon2-cross"></i>
+                </button>
+            </div>
+        </div>
+        <div class="kt-inbox__body">
+            <div class="kt-inbox__to row">
+                <div class="kt-inbox__wrapper col-6">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__input form-group-sub">
+                            <select class="form-control select2 has-select2 modal_project user_project_modal"
+                                    name="project">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="kt-inbox__wrapper col-6">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__input form-group-sub">
+                            <select class="form-control select2  modal_importance" name="importance">
+                            </select>                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kt-inbox__to row  ">
+                <div class="kt-inbox__input form-group-sub col-12">
+                    <input class="form-control  modal_subject rounded-lg col-12"    placeholder="موضوع" name="subject">
+                </div>
+
+
+<!--                <div class="kt-inbox__wrapper">-->
+<!--                    <div class="kt-inbox__field kt-inbox__field&#45;&#45;to">-->
+<!--                        <div class="kt-inbox__input form-group-sub">-->
+<!--                            <input class="form-control  modal_subject"  placeholder="موضوع" name="subject">-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+            </div>
+
+            <div class="kt-inbox__to ">
+                <div class="kt-inbox__wrapper">
+                    <div class="kt-inbox__field kt-inbox__field--to">
+
+                    </div>
+                    <div class="kt-inbox__field kt-inbox__field--to">
+                        <div class="kt-inbox__input form-group-sub">
+                            <textarea  placeholder="  متن ..  "   name="text" rows="5" class="form-control p-2  modal_text rounded-lg" style="resize: none!important;" ></textarea>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="kt-inbox__attachments">
+                <div class="dropzone dropzone-multi  " id="kt_inbox_compose_attachments">
+                    <div class="dropzone-items">
+                        <div class="dropzone-item " style="display:none;background: #f4f6fa">
+                            <div class="dropzone-file">
+                                <div class="dropzone-filename" title="some_image_file_name.jpg">
+                                    <span data-dz-name></span> <strong>(<span
+                                        data-dz-size></span>)</strong>
+                                </div>
+                                <div class="dropzone-error" data-dz-errormessage></div>
+                            </div>
+                            <div class="dropzone-progress">
+                                <div class="progress">
+                                    <div class="progress-bar kt-bg-brand" role="progressbar"
+                                         aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"
+                                         data-dz-uploadprogress></div>
+                                </div>
+                            </div>
+                            <div class="dropzone-toolbar">
+                                                <span class="dropzone-delete" data-dz-remove><i
+                                                        class="flaticon2-cross"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="kt-inbox__foot">
+            <div class="kt-inbox__primary col-9">
+                <button type="button"   id="kt_inbox_compose_attachments_select" class="btn col-3 btn-primary ml-0 btn-bold rounded-lg">
+                    بارگذاری فایل
+                </button>
+
+                <div class="kt-inbox__panel ">
+
+                </div>
+            </div>
+            <div class="kt-inbox__secondary col-3">
+                <div class="btn-group col-12">
+                    <button type="submit" form="save-ticket-form"  id="save_ticket_btn" class="btn btn-md col-12 btn-brand btn-bold rounded-lg">
+                        ارسال
+                    </button>
+                </div>
+
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <!--    <div class="modal-header">-->
+<!--        <h5 class="modal-title">ثبت تیکت</h5>-->
+<!--    </div>-->
+<!--    <div class="modal-body">-->
+
+<!--        <form class="kt-form kt-form&#45;&#45;label-right" id="form-modal-add-ticket-text"  >-->
+<!--            <div class="kt-portlet__body">-->
+<!--                <div class="form-group  row">-->
+<!--                    <div class="col-lg-12 form-group-sub  ">-->
+<!--                        <label >پروژه</label>-->
+<!--                        <select class="form-control has-select2 border-radius has-select2-no-tags user_modal_project" >-->
+<!--                            <option th:each=" option : ${userProject}"-->
+<!--                                    th:text="${option.name}"-->
+<!--                                    th:value="${option.id}">-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-lg-12 mt-4 form-group-sub  ">-->
+<!--                        <label class="form-control-label">موضوع-->
+<!--                            <span class="text-danger" >*</span>-->
+<!--                        </label>-->
+<!--                        <input class="form-control border-radius modal_project"   >-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--    <div class="modal-footer">-->
+<!--        <button type="button" class="btn btn-outline-secondary br-radius-5" data-dismiss="modal">انصراف</button>-->
+<!--        <button id="save_ticket_btn"  form="form-modal-add-ticket-text"  class="btn btn-brand  br-radius-5">-->
+<!--            ذخیره-->
+<!--        </button>-->
+<!--    </div>-->
+
+
+</div>
+</html>

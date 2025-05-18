@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fa" xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+
+
+    <div class="kt-subheader   kt-grid__item" id="kt_subheader">
+        <div class="kt-container  kt-container--fluid ">
+            <div class="kt-subheader__main">
+                <h3 class="kt-subheader__title">
+                    محصولات </h3>
+                <span class="kt-subheader__separator kt-hidden"></span>
+                <div class="kt-subheader__breadcrumbs">
+                    <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                    <a href="" class="kt-subheader__breadcrumbs-link">
+                        محصول جدید </a>
+                    <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+        <div class="row">
+            <div class="col-lg-12">
+
+                <!-- begin:: Content -->
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile"
+                     id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">
+                                ایجاد محصول جدید
+                                <small>پس از وارد کردن اطلاعات گزینه ثبت را بزنید.</small>
+
+                            </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <div class="btn-group">
+                                <div class="kt-subheader__wrapper">
+                                    <a href="/admin/productProvider/0" class="btn btn-default btn-bold ">بازگشت </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <form class="kt-form form-product-provider" th:object=" ${productDetail}">
+                        <div class="kt-portlet__body">
+
+                            <input type="text" th:field=" *{productProviderId}" hidden>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-9">
+                                    <div class="kt-portlet__body">
+                                        <div class="form-group row">
+                                            <div class="col-4 form-group-sub"
+                                                 th:if=" ${@superVisor.isSuperVisor()}">
+                                                <span class="text-dark">نام تامین کننده : </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                [[*{providerId}]]
+                                                <select th:field="*{providerId}"
+                                                        class="form-control kt-select2">
+                                                    <option th:each=" op : ${@provider.getMyProvider()}"
+                                                            th:value=" ${op.id}"
+                                                            th:selected="${op.id} == *{providerId}"
+                                                            th:text=" ${op.name}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 form-group-sub">
+                                                <span class="text-dark">نام محصول : </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <select th:field="*{productId}"
+                                                        class="form-control kt-select2">
+                                                    <option th:each=" op : ${@product.getMyProductList()}"
+                                                            th:value=" ${op.id}"
+                                                            th:text=" ${op.name}"></option>
+                                                </select>
+                                            </div>
+                                            <div class="col-4 form-group-sub">
+                                                <span class="text-dark">قیمت واحد :</span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input type="text"
+                                                       class="change-on-key-up  form-control form-product-primitiveAmount kt_touchspin primitive-amount"
+                                                       th:field=" *{primitiveAmount}"
+                                                       placeholder="قیمت واحد محصول را وارد کنید">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+
+                                            <div class="col-4 form-group-sub">
+                                                <span class="text-dark">درصد تخفیف : </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input type="text"
+                                                       th:field=" *{discountPercent}"
+                                                       minlength="0"
+                                                       maxlength="2"
+                                                       class=" change-on-key-up form-control kt_touchspin_off form-product-offPercent "
+                                                       placeholder="درصد تخفیف محصول را وارد کنید"
+                                                       >
+                                            </div>
+                                            <div class="col-4 form-group-sub">
+                                                <span class="text-dark">قیمت تخفیف  : </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input disabled
+                                                       th:field=" *{discountAmount}"
+                                                       class="form-control form-product-offPrice kt_touchspin "
+                                                       readonly
+                                                       name="form-product-add-offPrice">
+                                            </div>
+                                            <div class="col-4 form-group-sub">
+                                                <span class="text-dark">قیمت نهایی : </span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input
+                                                        th:field=" *{finalAmount}"
+                                                        readonly
+                                                        class="form-control form-product-finalAmount kt_touchspin "
+                                                        disabled
+                                                        placeholder="درصد تخفیف محصول را وارد کنید"
+                                                        name="form-product-add-finalAmount">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  row">
+                                            <div class="col-4 form-group-sub">
+                                                <span class="text-dark">اولویت نمایش :</span>
+<!--                                                <span class="small">(نمایش در سایت)</span>-->
+                                                <input type="text"
+                                                       th:field=" *{showOrder}"
+                                                       class="form-control kt_touchspin_order form-product-add-showOrder "
+                                                       placeholder="اولویت نمایش  محصول را وارد کنید"
+                                                       >
+
+                                            </div>
+                                            <div class="col-lg-4 form-group-sub">
+                                                <span class="text-dark">حداقل میزان سفارش :</span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input type="text"
+                                                       th:field=" *{minAllow}"
+                                                       class="form-control kt_touchspin_float form-product-add-minAllow "
+                                                       placeholder="حداقل سفارش را برای محصول  وارد کنید"
+                                                       name="form-product-add-minAllow">
+                                            </div>
+                                            <div class="col-lg-4 form-group-sub">
+                                                <span class="text-dark">حداکثر میزان سفارش :</span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input type="text"
+                                                       th:field=" *{maxAllow}"
+                                                       class="form-control kt_touchspin_float form-product-add-maxAmount "
+                                                       placeholder="حداکثر سفارش را برای محصول  وارد کنید">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  row">
+
+                                            <div class="col-lg-4 form-group-sub">
+                                                <span class="text-dark"> زمان سفارش به ساعت:</span>
+<!--                                                <span class="small">(نمایش در سایت)</span>-->
+                                                <input type="text"
+                                                       th:field="*{prepareHour}"
+                                                       class="form-control kt_touchspin_hour form-product-add-prepareHour "
+                                                       placeholder="حداقل زمان آماده سازی محصول  وارد کنید">
+                                            </div>
+                                            <div class="col-lg-4 form-group-sub">
+                                                <span class="text-dark">موجودی انبار:</span>
+                                                <span class="small"></span>
+                                                <input type="text"
+                                                       th:field="*{storageCount}"
+                                                       class="form-control form-product-add-count "
+                                                       placeholder="تعداد کالا  وارد کنید">
+                                            </div>
+                                            <div class="col-lg-4 form-group-sub">
+                                                <span class="text-dark">موجودی سایت:</span>
+                                                <span class="small">(نمایش در سایت)</span>
+                                                <input readonly type="text"
+                                                       th:field="*{productCount}"
+                                                       class="form-control  form-product-add-count "
+                                                       placeholder="تعداد کالا  وارد کنید">
+                                            </div>
+                                        </div>
+                                        <div class="form-group  row">
+
+                                            <div class="col-lg-4 form-group-sub">
+                                                <span class="text-dark">ایا موجودی سایت بروز شود؟</span>
+                                                <input type="checkbox"
+                                                       name="changeExistCount"
+                                                       class="form-control"
+                                                       >
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="kt-portlet__foot">
+                                        <div class="kt-form__actions">
+                                            <div class="btn btn-outline-info btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                 data-ktwizard-type="action-submit">
+                                                ثبت
+                                            </div>
+                                            <a href="/admin/product/0"
+                                               class="btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u btn btn-outline-danger ">لغو</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        <!-- end:: Content -->
+    </div>
+    <!--end::Portlet-->
+    <!--begin::Modal-->
+    <!-- remote datatable modal -->
+    <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}"
+            type="text/javascript"></script>
+
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/persian-date.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/util.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/select2_js/select2.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/moneyFormat/moneyFormat.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/pNumber-to-eNumber/pNumber-to-eNumber.js}"
+            type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/productProvider/addProductProvider.js}" type="text/javascript"></script>
+
+</div>
+
+</body>
+</html>

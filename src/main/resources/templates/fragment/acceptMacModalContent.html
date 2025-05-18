@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+<div th:fragment="modal" th:remove="tag">
+    <div class="modal-header">
+        <h5 class="modal-title">مشخصات تلفن همراه راننده</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+    </div>
+    <div class="modal-body">
+         <div class="kt-infobox">
+                    <div class="kt-infobox__body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="kt-infobox__section">
+                                    <div class="kt-infobox__content">
+                                        <div class="table-responsive">
+                                            <table class="table table-light table-light--success">
+                                                <thead>
+                                                <tr>
+                                                    <th>شرح</th>
+                                                    <th class="table-center">مشخصات</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">مشخصات راننده</td>
+                                                    <td class="table-center" th:text="${data.firstName} + ' ' + ${data.lastName}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">شماره موبایل</td>
+                                                    <td class="table-center" th:text="${data.mobile}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">تاریخ ورود</td>
+                                                    <td class="table-center" th:text="${data.dateToPersianDate(data.date)}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">مدل تلفن</td>
+                                                    <td class="table-center" th:text="${data.mobileModel}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">نسخه اندروید</td>
+                                                    <td class="table-center" th:text="${data.androidVersion}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">نسخه نرم افزار</td>
+                                                    <td class="table-center" th:text="${data.applicationVersion}"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="kt-font-bold table-row-title">آدرس MAC</td>
+                                                    <td class="table-center" th:text="${data.mac}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+        <button type="button" class="btn btn-danger"  th:attr="data-reject-device=${data.deviceId}+'/0'">رد درخواست</button>
+        <button type="button" class="btn btn-primary" th:attr="data-accept-device=${data.deviceId}+'/1'">تایید</button>
+    </div>
+
+</div>
+</body>
+</html>

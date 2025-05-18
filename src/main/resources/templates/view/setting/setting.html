@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/css/pages/custom-rtl.css}" rel="stylesheet" type="text/css"/>
+</div>
+
+<body>
+<div th:remove="tag" th:fragment="content">
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid setting-container">
+         <div class="row">
+             <div class="col-xl-6 col-md-6">
+                 <!--Begin::Portlet-->
+                 <div class="kt-portlet kt-portlet--responsive-tablet-and-mobile">
+                     <div class="kt-portlet__head kt-portlet--height-fluid kt-portlet__head--lg kt-portlet__head--break-sm">
+                         <div class="kt-portlet__head-label">
+                             <h3 class="kt-portlet__head-title">انواع خودرو</h3>
+                         </div>
+                         <div class="kt-portlet__head-toolbar">
+                             <button type="button" class="btn btn-brand" id="add-car">
+                                 <i class="la la-plus pr-0"></i>
+                             </button>
+                         </div>
+                     </div>
+                     <div class="kt-portlet__body kt-portlet__body--fit">
+                         <div class="kt-datatable table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline" id="vehicle-table"></div>
+                     </div>
+                 </div>
+
+                 <!--End::Portlet-->
+             </div>
+             <div class="col-xl-6 col-md-6">
+                 <div class="kt-portlet kt-portlet--responsive-tablet-and-mobile">
+                     <div class="kt-portlet__head kt-portlet--height-fluid kt-portlet__head--lg kt-portlet__head--break-sm">
+                         <div class="kt-portlet__head-label">
+                             <h3 class="kt-portlet__head-title">انواع رنگ</h3>
+                         </div>
+                         <div class="kt-portlet__head-toolbar">
+                             <button type="button" class="btn btn-brand" id="add-color">
+                                 <i class="la la-plus pr-0"></i>
+                             </button>
+                         </div>
+                     </div>
+                     <div class="kt-portlet__body kt-portlet__body--fit">
+                         <div class="kt-datatable table table-striped- table-bordered table-hover table-checkable dataTable no-footer dtr-inline" id="color-table"></div>
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+    </div>
+    <!--end::Portlet-->
+    <!--begin::Modal-->
+    <!-- remote datatable modal -->
+    <div id="kt_modal_remote" class="modal fade" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content" >
+            </div>
+        </div>
+    </div>
+
+    <!--end::Modal-->
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/block-ui/jquery.blockUI.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-maxlength/src/bootstrap-maxlength.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/vendors/bootstrap-multiselectsplitter/bootstrap-multiselectsplitter.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-select/dist/js/bootstrap-select.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/custom/apps/setting/config.js}" type="text/javascript"></script>
+
+</div>
+
+</body>
+</html>

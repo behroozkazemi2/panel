@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fa" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+
+<div th:remove="tag" th:fragment="style">
+
+    <link rel="stylesheet" th:href="@{/assets/css/pages/ticketTime.css}">
+</div>
+
+
+<body id="productDetails">
+
+
+<div th:remove="tag" th:fragment="content">
+
+    <div class="content">
+        <h1 class="d-bugingg d-none">تیکت</h1>
+        <div class="product-breadcrumb " >
+            <ul class=" offset-10" style="justify-content: left!important;">
+                <a class="bg-light border px-2 py-2"  th:classappend="${closed} ?  'bg-danger' : 'bg-success' " rel="tag" href="#" th:text="${closed} ? '   وضعیت تیکت : بسته شده' : 'وضعیت تیکت : باز' " > </a>
+                <button type="button" class=" close-ticket bg-light border px-2 py-2" th:if="${!closed}" style="margin-right:10px; color: white !important;background: #265CC7 !important; border-radius: 10px " > بستن تیکت</button>
+            </ul>
+        </div>
+
+        <input class="ticket_id" hidden="hidden" th:value="${data.ticketId}">
+        <input class="ticket_id" hidden="hidden" th:value="${data.ticketSubject}">
+        <h6 style="text-align-last:center">
+            موضوع:
+            [[${data.ticketSubject}]]
+        </h6>
+        <hr>
+        <br>
+        <div class="timeline">
+        </div>
+
+
+        <section th:if="${!closed}" class="col-12 mt-3" style="align-content: center;align-items: center;text-align: -webkit-center" >
+            <textarea id="text_area" placeholder="متن خود را وارد نمایید." name="text_area" class="text_area" rows="4" cols="185"></textarea>
+        </section>
+
+        <div class="product-breadcrumb"  >
+            <ul class=" offset-11" style="justify-content: left!important;">
+                <button type="button" class=" bg-light border save_ticket_btn px-2 py-2" id="save_ticket_btn" th:if="${!closed}" style="margin-right:10px; color: white !important;background: #265CC7 !important; border-radius: 10px " >ثبت پیام</button>
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/js/pages/ticket/ticketMessage.js}" type="text/javascript"></script>
+</div>
+
+</body>
+
+</html>

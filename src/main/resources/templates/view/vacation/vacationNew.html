@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+
+<div th:remove="tag" th:fragment="style">
+    <link th:href="@{/assets/libs/general/select2/dist/css/select2.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/pages/general/wizard/wizard-4.rtl.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/libs/general/pDatePicker/persian-datepicker.min.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/pages/user/request/style.css}" rel="stylesheet" type="text/css" />
+    <link th:href="@{/assets/css/jquery.md.bootstrap.datetimepicker.style.css}" rel="stylesheet" type="text/css" />
+
+
+</div>
+<body>
+<div th:remove="tag" th:fragment="content">
+
+    <!-- begin:: Content -->
+    <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
+
+        <!--begin::Portlet-->
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body kt-portlet__body--fit">
+
+                <div class="kt-portlet kt-portlet--last kt-portlet--head-lg kt-portlet--responsive-mobile" id="kt_page_portlet">
+                    <div class="kt-portlet__head kt-portlet__head--lg">
+                        <div class="kt-portlet__head-label">
+                            <h3 class="kt-portlet__head-title">فرم درخواست مرخصی جدید </h3>
+                        </div>
+                        <div class="kt-portlet__head-toolbar">
+                            <a href="/admin/vacation" class="btn btn-clean kt-margin-r-10">
+                                <i class="la la-arrow-right"></i>
+                                <span class="kt-hidden-mobile">برگشت</span>
+                            </a>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-brand action-submit">
+                                    <i class="la la-check"></i>
+                                    <span class="kt-hidden-mobile">ذخیره مرخصی</span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="kt-portlet__body">
+                        <form autocomplete="off" class="kt-form" id="kt_form" th:object="${vacation}">
+                            <div class="row">
+                                <div class="col-lg-12 col-xl-12">
+                                    <div class="kt-section kt-section--first">
+                                        <div class="kt-section__body">
+                                            <h3 class="kt-section__title kt-section__title-lg">اطلاعات ماموریت</h3>
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">عنوان</label>
+                                                <div class="col-9">
+                                                    <input class="form-control" type="text" th:field="*{description}" placeholder="عنوان مرخصی">
+                                                    <input type="hidden" th:field="*{id}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">راننده</label>
+                                                <div class="col-9">
+                                                    <select class="form-control" id="selectUser" type="text" th:field="*{driverId}">
+                                                        <option th:if="*{driverId}>0" th:value="*{driverId}" selected="selected" th:text="*{driverId}"></option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">زمان شروع</label>
+                                                <div class="col-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span
+                                                                class="input-group-text cursor-pointer"
+                                                                id="fromDate"><i
+                                                                class="la la-calendar"></i></span></div>
+                                                        <input type="text"
+                                                               th:value="*{fromDate!=null} ?*{getPersianDateAndHour(fromDate)}"
+                                                               id="startTimeStamp"
+                                                               name="startTimeStamp"
+                                                               class="form-control"
+                                                               aria-label="fromDate"
+                                                               aria-describedby="fromDate">
+                                                        <input type="hidden"
+                                                               th:value="*{fromDate!=null} ?*{fromDate}"
+                                                               name="fromDate"
+                                                               id="startTimeStampDate"
+                                                               class="form-control"
+                                                               aria-label="fromDate"
+                                                               aria-describedby="fromDate">
+                                                        <input type="text"
+                                                               th:value="*{fromTime!=null} ?*{fromTime}"
+                                                               name="fromTime"
+                                                               id="startTime"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <label class="col-3 col-form-label">زمان پایان</label>
+                                                <div class="col-9">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend"><span
+                                                                class="input-group-text cursor-pointer"
+                                                                id="toDate"><i
+                                                                class="la la-calendar"></i></span></div>
+                                                        <input type="text"
+                                                               th:value="*{toDate!=null} ?*{getPersianDateAndHour(toDate)}"
+                                                               id="endTimeStamp"
+                                                               name="endTimeStamp"
+                                                               class="form-control"
+                                                               aria-label="toDate"
+                                                               aria-describedby="toDate">
+                                                        <input type="hidden"
+                                                               th:value="*{toDate!=null} ?*{toDate}"
+                                                               name="toDate"
+                                                               id="endTimeStampDate"
+                                                               class="form-control"
+                                                               aria-label="toDate"
+                                                               aria-describedby="toDate">
+                                                        <input type="text"
+                                                               th:value="*{toTime!=null} ?*{toTime}"
+                                                               name="toTime"
+                                                               id="endTime"
+                                                               class="form-control">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-brand action-submit">
+                            <i class="la la-check"></i>
+                            <span class="kt-hidden-mobile">ذخیره مرخصی</span>
+                        </button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--end::Portlet-->
+
+    </div>
+
+    <!-- end:: Content -->
+</div>
+<div th:remove="tag" th:fragment="script">
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/bootstrap-timepicker/js/bootstrap-timepicker.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-form/dist/jquery.form.min.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/jquery.validate.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/jquery-validation/dist/additional-methods.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/custom/js/vendors/jquery-validation.init.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/libs/general/select2/dist/js/select2.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/libs/general/persian-js/persian.js}" type="text/javascript"></script>
+
+    <script th:src="@{/assets/js/jquery.md.bootstrap.datetimepicker.js}" type="text/javascript"></script>
+    <script th:src="@{/assets/js/pages/custom/apps/vacation/vacationNew.js}" type="text/javascript"></script>
+</div>
+
+</body>
+</html>
